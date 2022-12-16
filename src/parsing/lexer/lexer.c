@@ -6,11 +6,11 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:16:39 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/09 19:46:27 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/16 20:03:06 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/lexer.h"
+#include "../../includes/lexer.h"
 
 t_lexer	*init_lexer(char *contents)
 {
@@ -44,9 +44,9 @@ char	*lexer_get_current_char_as_string(t_lexer	*lexer)
 	return (str);
 }
 
-void lexer_skip_comma(t_lexer *lexer)
+void	lexer_skip_comma(t_lexer *lexer)
 {
-	int counter;
+	int	counter;
 
 	counter = 0;
 	while (lexer->c == 32 || lexer->c == ',')
@@ -59,13 +59,7 @@ void lexer_skip_comma(t_lexer *lexer)
 		ft_error("syntax error missing comma or an additional one");
 }
 
-void	lexer_skip_whitespace(t_lexer *lexer)
-{
-	while(lexer->c == 32)
-		lexer_advance(lexer);
-}
-
-char *filter(t_lexer *lexer, int (*condition)(t_lexer *))
+char	*filter(t_lexer *lexer, int (*condition)(t_lexer *))
 {
 	char	*value;
 	char	*tmp;
@@ -80,7 +74,7 @@ char *filter(t_lexer *lexer, int (*condition)(t_lexer *))
 		value = ft_strjoin(value, s);
 		free(tmp);
 		free(s);
-		lexer_advance(lexer);	
+		lexer_advance(lexer);
 	}
 	return (value);
 }

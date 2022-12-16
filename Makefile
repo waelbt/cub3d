@@ -1,38 +1,30 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/30 12:43:19 by waboutzo          #+#    #+#              #
-#    Updated: 2022/12/10 17:36:16 by waboutzo         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME			=	cub3D
 
-NAME	=	cub3D
+RM				=	rm -rf
 
-LIBFT	=	src/libft/libft.a
+CC				=	cc
 
-RM		=	rm -rf
+HEADER			=	src/includes/cub3D.h
 
-CC		=	cc
+CFLAGS			=	-Wall -Wextra -Werror -g -fsanitize=address #-lmlx -framework OpenGL -framework AppKit  #
 
-HEADER	=	src/include/cub3D.h
+GNL				=	get_next_line_utils get_next_line
 
-CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address #-lmlx -framework OpenGL -framework AppKit  #
+LIBFT			=	src/general_tools/libft/libft.a
 
-TOOLS	=	get_next_line get_next_line_utils
+GENERAL_TOOLS	= $(addsuffix .c, $(addprefix src/general_tools/GNL/, $(GNL)))
 
-PARSING	=	cubscene
+LEXER			=	identifier_lexer lexer
 
-LEXER	=	lexer
+TOOLS			=	filter_cases parse_function tools
 
-SRCS	= 	$(addsuffix .c, $(addprefix src/tools/, $(TOOLS))) \
-			$(addsuffix .c, $(addprefix src/parsing/, $(PARSING))) \
-			$(addsuffix .c, $(addprefix src/lexer_tokens/, $(LEXER)))
+PARSING			=  	src/parsing/cubscene_parsing.c \
+					$(addsuffix .c, $(addprefix src/parsing/lexer/, $(LEXER))) \
+					$(addsuffix .c, $(addprefix src/parsing/tools/, $(TOOLS)))
 
-OBJ		=	$(SRCS:.c=.o)
+SRCS			= 	$(GENERAL_TOOLS) $(PARSING)
+
+OBJ				=	$(SRCS:.c=.o)
 	
 .c.o:
 	@$(CC)  $(CFLAGS) -c $< -o $@
@@ -43,13 +35,14 @@ $(NAME): $(HEADER) main.c $(LIBFT) $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) main.c -o $(NAME)
 
 $(LIBFT) :
-	@make -C src/libft
+	@make -C src/general_tools/libft/
 clean :
-#@make clean -C src/libft
+#@make clean -C src/general_tools/libft/
 	@$(RM) $(OBJ)
+	@$(RM)	cub3D.dSYM
 
 fclean : clean
-#@make fclean -C src/libft
+#@make fclean -C src/general_tools/libft/
 	@$(RM) $(NAME)
 
 re : fclean all
