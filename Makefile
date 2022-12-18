@@ -6,7 +6,7 @@ CC				=	cc
 
 HEADER			=	src/includes/cub3D.h
 
-CFLAGS			=	-Wall -Wextra -Werror -g -fsanitize=address #-lmlx -framework OpenGL -framework AppKit  #
+CFLAGS			=	-Wall -Wextra -Werror 
 
 GNL				=	get_next_line_utils get_next_line
 
@@ -22,7 +22,10 @@ PARSING			=  	src/parsing/cubscene_parsing.c \
 					$(addsuffix .c, $(addprefix src/parsing/lexer/, $(LEXER))) \
 					$(addsuffix .c, $(addprefix src/parsing/tools/, $(TOOLS)))
 
-SRCS			= 	$(GENERAL_TOOLS) $(PARSING)
+EXECUTION		=	canvas ray tuples
+
+SRCS			= 	$(GENERAL_TOOLS) $(PARSING) \
+					$(addsuffix .c, $(addprefix src/execution/, $(EXECUTION)))
 
 OBJ				=	$(SRCS:.c=.o)
 	
@@ -32,7 +35,7 @@ OBJ				=	$(SRCS:.c=.o)
 all : $(NAME)
 
 $(NAME): $(HEADER) main.c $(LIBFT) $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) main.c -o $(NAME)
+	@$(CC) $(CFLAGS) -lmlx -framework OpenGL -framework AppKit $(OBJ) $(LIBFT) main.c -o $(NAME)
 
 $(LIBFT) :
 	@make -C src/general_tools/libft/

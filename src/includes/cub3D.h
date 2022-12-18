@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 01:45:06 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/16 20:07:55 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/17 09:11:33 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,22 @@
 # include   <unistd.h>
 # include   <stdlib.h>
 # include   <stdarg.h>
+# include	<stdbool.h>
 # include   <string.h>
 # include   <sys/errno.h>
 # include   <stdio.h>
 # include   <mlx.h>
 # include   <fcntl.h>
-# include   <math.h>
+# include	<math.h>
+# include	<float.h>
 # include   "libft.h"
 # include   "get_next_line.h"
 # include   "lexer.h"
+# include	"canvas.h"
+# include	"ray.h"
+# include 	"tuples.h"
+
+
 
 typedef struct color
 {
@@ -52,7 +59,7 @@ typedef struct cubscene
 	int			counter;
 	t_texture	*texture;
 	t_color		*ceilling;
-	t_color		*floor;
+	t_color		*floor; 
 	char		**map;
 	int			map_height;
 }	t_cubscene;
