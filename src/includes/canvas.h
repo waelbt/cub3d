@@ -6,14 +6,15 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:19:44 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/18 20:53:03 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/19 00:19:23 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CANVAS_H
 #define CANVAS_H
 
-# include 	"tuples.h"
+typedef struct color t_color;
+#include "cub3D.h"
 
 typedef struct s_canvas
 {
@@ -27,7 +28,7 @@ typedef struct s_canvas
 } t_canvas;
 
 
-t_canvas *new_canvas(void *mlx, int width, int height);
-void write_pixel(t_canvas *canvas, int x, int y, t_tuple *color);
-
+t_canvas    *new_canvas(void *mlx, int width, int height);
+int         convert_color(t_color *color);
+void        write_pixel(t_canvas *canvas, int x, int y, int color);
 #endif

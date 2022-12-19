@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   map_render.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 12:44:05 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/16 20:31:08 by waboutzo         ###   ########.fr       */
+/*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
+/*   Updated: 2022/12/19 03:30:39 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-#define RAY_H
+#include "../../includes/cub3D.h"
 
-#include "cub3D.h"
-
-
-typedef struct s_ray
+void rec(t_canvas *canvas, t_color *color)
 {
-	t_tuple *origin;
-	t_tuple *direction;
-} t_ray;
+	int i;
+	int j;
 
-t_ray		*new_ray(t_tuple *point, t_tuple *vector);
-t_tuple		*position(t_ray *ray, double t);
-
-#endif
+	j = -1;
+	while(++j < REC_SIZE)
+	{
+		i = -1;
+		while(++i < REC_SIZE)
+		{
+			if (i == 0 || i == REC_SIZE - 1 || j == REC_SIZE -1 || j == 0)
+				write_pixel(canvas, i , j, 0);
+			else
+				write_pixel(canvas, i , j, convert_color(color));
+		}
+	}
+}

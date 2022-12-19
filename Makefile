@@ -6,7 +6,7 @@ CC				=	cc
 
 HEADER			=	src/includes/cub3D.h
 
-CFLAGS			=	-Wall -Wextra -Werror 
+CFLAGS			=	-Wall -Wextra -Werror -fsanitize=address
 
 GNL				=	get_next_line_utils get_next_line
 
@@ -22,7 +22,7 @@ PARSING			=  	src/parsing/cubscene_parsing.c \
 					$(addsuffix .c, $(addprefix src/parsing/lexer/, $(LEXER))) \
 					$(addsuffix .c, $(addprefix src/parsing/tools/, $(TOOLS)))
 
-EXECUTION		=	canvas ray tuples
+EXECUTION		=	canvas render/map_render
 
 SRCS			= 	$(GENERAL_TOOLS) $(PARSING) \
 					$(addsuffix .c, $(addprefix src/execution/, $(EXECUTION)))
