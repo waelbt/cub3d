@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 01:45:06 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/20 19:37:57 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/20 20:24:46 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct player
 	int x;
 	int y;
 	int radius;
+	int character;
 	int turnDirection;
 	int walkDirection;
 	double rotationAngle;
@@ -95,4 +96,5 @@ void		parsing(int fd, t_cubscene *cubscene);
 
 void rec(t_canvas *canvas, int x, int y, t_color *color);
 t_player *new_player(int x, int y, char character);
+void circle(t_canvas *canvas, int x, int y, int radius, t_color *color);
 #endif

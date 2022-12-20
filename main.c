@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:43:24 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/20 19:45:31 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/20 20:25:23 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void render(t_cubscene *cubscene)
 		i = -1;
 		while(cubscene->map[j][++i])
 		{
-			if (cubscene->map[j][i] == '0')
+			if (cubscene->map[j][i] == '0' || cubscene->map[j][i] == cubscene->player->character)
 				rec(cubscene->canvas, i, j, cubscene->floor);
 			else if (cubscene->map[j][i] == '1')
 				rec(cubscene->canvas, i, j, cubscene->ceilling);
 		}
 	}
-	rec(cubscene->canvas, cubscene->player->x, cubscene->player->y, get_color(init_lexer("255, 0, 0\n")));
+	circle(cubscene->canvas, cubscene->player->x, cubscene->player->y, 7, get_color(init_lexer("255, 0, 0\n")));
 	mlx_put_image_to_window(cubscene->mlx, cubscene->win, cubscene->canvas->img, 0, 0);
 }
 

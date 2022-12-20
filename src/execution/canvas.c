@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:26:19 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/19 04:31:38 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/20 20:24:34 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_player *new_player(int x, int y, char character)
     player->x = x;
     player->y = y;
     player->radius = 3;
+    player->character = character;
     player->turnDirection = 0;
     player->walkDirection = 0;
     if (character == 'N')
