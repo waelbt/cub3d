@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 19:13:56 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/14 19:39:29 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/20 19:28:55 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*filter(t_lexer *lexer, int (*condition)(t_lexer *));
 void	skip_space_comma(t_lexer *lexer);
 int		identifier(t_lexer *lexer);
 int		identifier_value(t_lexer *lexer);
-int		identifier_texture_value(t_lexer *lexer);
+// int		identifier_texture_value(t_lexer *lexer);
 int		identifier_color(t_lexer *lexer);
 
 #endif

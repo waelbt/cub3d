@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:50:37 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/19 02:10:38 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/20 19:32:07 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,22 @@ void	add_lines(t_cubscene *cubscene, char *str)
 	cubscene->map = new_map;
 }
 
+int ft_position(char *str)
+{
+	int counter;
+
+	counter = -1;
+	while (str[++counter])
+	{
+		if (str[counter] == 'N'
+			|| str[counter] == 'S'
+			|| str[counter] == 'O'
+			|| str[counter] == 'W')
+			return counter;
+	}
+	return (-1);
+}
+
 void	check_map(t_cubscene *cubscene)
 {
 	char		**chunks;
@@ -76,7 +92,7 @@ void	check_map(t_cubscene *cubscene)
 		i[1] = -1;
 		while (chunks[++i[1]])
 		{
-			check_undefined_elements(cubscene, chunks[i[1]], &position_element, i[0]);
+			check_undefined_elements(cubscene, chunks[i[1]], &position_element, i[0], ft_position(cubscene->map[i[0]]));
 			if (i[0] == 0 || i[0] == cubscene->map_height - 1)
 				horizontal_walls(chunks[i[1]]);
 			else if (chunks[i[1]][0] != '1'

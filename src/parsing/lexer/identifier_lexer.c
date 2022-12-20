@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:18:13 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/18 23:53:50 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/20 19:29:01 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	fill_textures(t_cubscene *cubscene, t_lexer *lexer, char *find)
 		ft_error("identifier invalid");
 	if (cubscene->texture->path[i])
 		ft_error("repeated identifier");
-	cubscene->texture->path[i] = filter(lexer, identifier_texture_value);
+	cubscene->texture->path[i] = filter(lexer, identifier_value);
 	strim = ft_strtrim(cubscene->texture->path[i], " ");
 	str = ft_strrchr(strim, '.');
 	if (str && ft_strcmp(str, ".xpm"))

@@ -20,7 +20,7 @@ TOOLS			=	filter_cases parse_function tools
 
 PARSING			=  	src/parsing/cubscene_parsing.c \
 					$(addsuffix .c, $(addprefix src/parsing/lexer/, $(LEXER))) \
-					$(addsuffix .c, $(addprefix src/parsing/tools/, $(TOOLS)))
+					$(addsuffix .c, $(addprefix src/parsing/parsing_tools/, $(TOOLS)))
 
 EXECUTION		=	canvas render/map_render
 
