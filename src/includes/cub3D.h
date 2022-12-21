@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 01:45:06 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/21 01:08:12 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/21 23:52:27 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # define 	DOWN		1
 # define    LEFT		0
 # define 	RIGHT		2
+# define	UP_ARROW	126
+# define 	DOWN_ARROW	125
+# define    LEFT_ARROW	123
+# define 	RIGHT_ARROW	124
 # include   <unistd.h>
 # include   <stdlib.h>
 # include   <stdarg.h>

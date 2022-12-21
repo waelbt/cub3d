@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:43:24 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/21 02:04:57 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/22 00:01:06 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void render_map(t_cubscene *cubscene)
 		i = -1;
 		while(cubscene->map[j][++i])
 		{
-			if (cubscene->map[j][i] == '0' || cubscene->map[j][i] == cubscene->player->character)
+			if (cubscene->map[j][i] == '0'
+				|| cubscene->map[j][i] == cubscene->player->character)
 				rec(cubscene->canvas, i, j, cubscene->floor);
 			else if (cubscene->map[j][i] == '1')
 				rec(cubscene->canvas, i, j, cubscene->ceilling);
@@ -44,25 +45,25 @@ int key_handler(int keycode, t_cubscene * cubscene)
 {
 	if (keycode == 53 || keycode < 0)
 		exit(0);
-	if (keycode == RIGHT)
+	if (keycode == RIGHT || keycode == RIGHT_ARROW)
 		cubscene->player->turnDirection = 1;
-	else if (keycode == LEFT)
+	else if (keycode == LEFT || keycode == LEFT_ARROW)
 		cubscene->player->turnDirection = -1;
-	else if (keycode == DOWN)
+	else if (keycode == DOWN || keycode == DOWN_ARROW)
 		cubscene->player->walkDirection = 1;
-	else if (keycode == UP)
+	else if (keycode == UP || keycode == UP_ARROW)
 		cubscene->player->walkDirection = -1;
-	//update_player(cubscene);
 	return (0);
 }
 
 int key_release(int keycode, t_cubscene * cubscene)
 {
-	(void) keycode;
-	if (keycode == DOWN || keycode == UP)
-		cubscene->player->walkDirection = 0;
-	else if (keycode == RIGHT || keycode == LEFT)
+	if (keycode == RIGHT || keycode == RIGHT_ARROW
+		|| keycode == LEFT || keycode == LEFT_ARROW)
 		cubscene->player->turnDirection = 0;
+	if (keycode == DOWN || keycode == DOWN_ARROW ||
+	keycode == UP || keycode == UP_ARROW)
+		cubscene->player->walkDirection = 0;
 	return (0);
 }
 

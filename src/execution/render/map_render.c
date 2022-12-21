@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/21 02:15:47 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/22 00:14:27 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int hasWallAt(t_cubscene *cubscene, int x, int y)
 
 	i = roundf((double)x / REC_SIZE);
 	j = roundf((double)y / REC_SIZE);
-	if (x < 0 || y < 0 || x >= cubscene->_width 
-		|| y >= cubscene->_height)
+	if (x < 0 || y < 0 || y >= cubscene->_height
+		|| x >= cubscene->_width || i >= (int) ft_strlen(cubscene->map[j]))
 		return (1);
 	if (cubscene->map[j][i] == '1')
 		return (1);
@@ -74,10 +74,21 @@ int hasWallAt(t_cubscene *cubscene, int x, int y)
 
 void update_player(t_cubscene *cubscene)
 {
+	int movesptep;
+    int newplayerx;
+    int newplayery;
+
 	cubscene->player->rotationAngle += cubscene->player->turnDirection * cubscene->player->rotationspeed;
-	int movesptep = cubscene->player->walkDirection * cubscene->player->movespeed;
-    int newplayerx = cubscene->player->x + cos(cubscene->player->rotationAngle) * movesptep;
-    int newplayery = cubscene->player->y + sin(cubscene->player->rotationAngle) * movesptep;
+	movesptep = cubscene->player->walkDirection * cubscene->player->movespeed;
+	newplayerx = movesptep;
+	newplayery = movesptep;
+	if (cubscene->player->walkDirection != 0)
+	{
+		newplayerx *= cos(cubscene->player->rotationAngle);
+		newplayery *= sin(cubscene->player->rotationAngle);
+	}
+	newplayerx += cubscene->player->x;
+	newplayery += cubscene->player->y;
     if (!hasWallAt(cubscene, newplayerx, newplayery)){
     	cubscene->player->x = newplayerx;
 		cubscene->player->y = newplayery;
