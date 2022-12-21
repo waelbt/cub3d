@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/20 20:23:00 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/21 02:15:47 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,18 @@ void rec(t_canvas *canvas, int x, int y, t_color *color)
 	}
 }
 
-void circle(t_canvas *canvas, int x, int y, int radius, t_color *color)
+void render_player(t_cubscene *cubscene,int color)
 {
 	int i;
 	int j;
 	int point_x;
 	int point_y;
 	int center;
+	int radius;
 	
 	j = -1;
 	center = REC_SIZE / 2;
+	radius = cubscene->player->radius;
 	while(radius > 0)
 	{
 		i = -1;
@@ -48,8 +50,36 @@ void circle(t_canvas *canvas, int x, int y, int radius, t_color *color)
 		{
 			point_x = center + radius * cos(i);
 			point_y = center + radius * sin(i);
-			write_pixel(canvas, point_x + (x * REC_SIZE), point_y + (y * REC_SIZE), convert_color(color));
+			write_pixel(cubscene->canvas, point_x + (cubscene->player->x),
+			point_y + (cubscene->player->y), color);
 		}
 		radius--;
 	}
+}
+
+int hasWallAt(t_cubscene *cubscene, int x, int y)
+{
+	int i;
+	int j;
+
+	i = roundf((double)x / REC_SIZE);
+	j = roundf((double)y / REC_SIZE);
+	if (x < 0 || y < 0 || x >= cubscene->_width 
+		|| y >= cubscene->_height)
+		return (1);
+	if (cubscene->map[j][i] == '1')
+		return (1);
+	return (0);
+}
+
+void update_player(t_cubscene *cubscene)
+{
+	cubscene->player->rotationAngle += cubscene->player->turnDirection * cubscene->player->rotationspeed;
+	int movesptep = cubscene->player->walkDirection * cubscene->player->movespeed;
+    int newplayerx = cubscene->player->x + cos(cubscene->player->rotationAngle) * movesptep;
+    int newplayery = cubscene->player->y + sin(cubscene->player->rotationAngle) * movesptep;
+    if (!hasWallAt(cubscene, newplayerx, newplayery)){
+    	cubscene->player->x = newplayerx;
+		cubscene->player->y = newplayery;
+    }
 }

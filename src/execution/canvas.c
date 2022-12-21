@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:26:19 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/20 20:24:34 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/21 02:15:38 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,21 @@ t_player *new_player(int x, int y, char character)
     t_player *player;
 
     player = (t_player *)malloc(sizeof(t_player));
-    player->x = x;
-    player->y = y;
-    player->radius = 3;
+    player->x = x * REC_SIZE;
+    player->y = y * REC_SIZE;
+    player->radius = 4;
     player->character = character;
     player->turnDirection = 0;
     player->walkDirection = 0;
     if (character == 'N')
-        player->walkDirection = 1;
+        player->rotationAngle = M_PI / 2;
     else if (character == 'S')
-        player->walkDirection = -1;
+        player->rotationAngle = (3 * M_PI )/ 2;
     else if (character == 'E')
-        player->turnDirection = 1;
+        player->rotationAngle = 0;
     else if (character == 'W')
-        player->turnDirection = -1;
-    player->rotationAngle = M_PI / 2;
+        player->rotationAngle = M_PI;
     player->movespeed = 2.0;
-    //player->rotationSpeed = 2 * (M_PI / 180);
+    player->rotationspeed = 2 * (M_PI / 180);
     return player;
 }

@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:50:37 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/20 19:32:07 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/20 20:42:26 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_cubscene	*new_cubscene(void)
 	cubscene->texture = (t_texture *) malloc(sizeof(t_texture));
 	cubscene->texture->path = (char **) malloc(sizeof(char *) * 5);
 	cubscene->floor = NULL;
+	cubscene->canvas = NULL;
 	cubscene->mlx = NULL;
 	cubscene->win = NULL;
 	cubscene->player = NULL;

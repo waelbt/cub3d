@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:38:35 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/20 17:39:46 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/20 20:44:10 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int	color_check(char *str)
 	number = ft_atoi(str);
 	if (number < 0 || number > 255)
 		ft_error("out of range");
+	free(str);
 	return (number);
 }
