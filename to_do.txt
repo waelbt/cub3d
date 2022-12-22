@@ -1,7 +1,0 @@
-subtract 30 degrees from the player rotation angle
-start at colmumn 0
-while(colmumn < 320)
-	cast a ray
-	trace the ray until t intersects with a wall
-	record the intersect (x, y) and the distance (ray length)
-	add the angle increment so the ray moves to right ray_angle += 60/ 320

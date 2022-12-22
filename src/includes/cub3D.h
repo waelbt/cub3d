@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 01:45:06 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/22 04:39:58 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/22 07:19:05 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include   "libft.h"
 # include   "get_next_line.h"
 # include   "lexer.h"
+# include 	"limits.h"
 # include	"canvas.h"
 
 # define    STDERR  			2
@@ -67,6 +68,13 @@ typedef struct player
 typedef struct ray
 {
 	double angle;
+	int	   wallhitx;
+	int	   wallhity;
+	int	   distance;
+	double israyfacingdown;
+	double israyfacingup;
+	double israyfacingright;
+	double israyfacingleft;
 }t_rays;
 
 typedef struct texture
@@ -121,4 +129,5 @@ void		ray_render(t_cubscene *cubscene, int index);
 t_rays		*new_ray(double angle);
 void		cast_all_rays(t_cubscene *cubscene);
 void		ft_free_rays(t_cubscene *cubscene);
+int			hasWallAt(t_cubscene *cubscene, int x, int y);
 #endif

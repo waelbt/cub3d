@@ -6,12 +6,27 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:43:24 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/22 04:40:15 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/22 07:23:06 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "src/includes/cub3D.h"
 
+void ft_clear_4adi_n7aydha(t_cubscene *cubscene)
+{
+	int i;
+	int j;
+
+	j = -1;
+	while (++j < cubscene->map_height)
+	{
+		i = -1;
+		while(++i < cubscene->map_width)
+		{
+			rec(cubscene->canvas, i, j, get_color(init_lexer("0, 0 , 0\n")));
+		}
+	}
+}
 void render_map(t_cubscene *cubscene)
 {
 	int i;
@@ -37,6 +52,7 @@ int render(t_cubscene *cubscene)
 	int i;
 
 	i  = -1;
+	ft_clear_4adi_n7aydha(cubscene);
 	render_map(cubscene);
 	update_player(cubscene);
 	cast_all_rays(cubscene);
