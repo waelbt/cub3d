@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/22 00:14:27 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/22 01:42:53 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,38 @@ void rec(t_canvas *canvas, int x, int y, t_color *color)
 			else
 				write_pixel(canvas, i + (x * REC_SIZE), j + (y * REC_SIZE), convert_color(color));
 		}
+	}
+}
+
+void line(t_cubscene *cubscene, int x, int y, int color)
+{
+	int dx;
+	int dy;
+	int i;
+	int steps;
+	float xinc;
+	float yinc;
+	float tmpx;
+	float tmpy;
+	int center;
+
+	i = -1;
+	center = REC_SIZE / 2;
+	dx = x - cubscene->player->x;
+	dy = y - cubscene->player->y;
+	if (abs(dx) > abs(dy))
+		steps = abs(dx);
+	else
+		steps = abs(dy);
+	xinc = dx / (float) steps;
+	yinc = dy / (float) steps;
+	tmpx = cubscene->player->x + center;
+	tmpy = cubscene->player->y + center;
+	while (++i <= steps)
+	{
+		write_pixel(cubscene->canvas, tmpx, tmpy, color);
+		tmpx += xinc;
+		tmpy += yinc;
 	}
 }
 
@@ -64,6 +96,7 @@ int hasWallAt(t_cubscene *cubscene, int x, int y)
 
 	i = roundf((double)x / REC_SIZE);
 	j = roundf((double)y / REC_SIZE);
+	printf("i %d j %d x %d y %d\n", i, j, x, y);
 	if (x < 0 || y < 0 || y >= cubscene->_height
 		|| x >= cubscene->_width || i >= (int) ft_strlen(cubscene->map[j]))
 		return (1);
@@ -71,6 +104,17 @@ int hasWallAt(t_cubscene *cubscene, int x, int y)
 		return (1);
 	return (0);
 }
+
+// int danger_zone(t_cubscene *cubscene, int x, int y)
+// {
+// 	int i;
+// 	int j;
+
+// 	i = roundf((double)x / REC_SIZE);
+// 	j = roundf((double)y / REC_SIZE);
+// 	if ()
+// 	return 0;	
+// }
 
 void update_player(t_cubscene *cubscene)
 {

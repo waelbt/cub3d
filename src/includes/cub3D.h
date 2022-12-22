@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 01:45:06 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/21 23:52:27 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/22 01:32:08 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,5 @@ void 		rec(t_canvas *canvas, int x, int y, t_color *color);
 t_player	*new_player(int x, int y, char character);
 void		render_player(t_cubscene *cubscene, int color);
 void		update_player(t_cubscene *cubscene);
+void		line(t_cubscene *cubscene, int x, int y, int color);
 #endif
