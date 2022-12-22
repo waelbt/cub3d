@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/22 03:29:30 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/22 04:25:06 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,17 +104,6 @@ int hasWallAt(t_cubscene *cubscene, int x, int y)
 	return (0);
 }
 
-// int danger_zone(t_cubscene *cubscene, int x, int y)
-// {
-// 	int i;
-// 	int j;
-
-// 	i = roundf((double)x / REC_SIZE);
-// 	j = roundf((double)y / REC_SIZE);
-// 	if ()
-// 	return 0;	
-// }
-
 void update_player(t_cubscene *cubscene)
 {
 	int movesptep;
@@ -145,16 +134,3 @@ void update_player(t_cubscene *cubscene)
 		cubscene->player->y = newplayery[0];
     }
 }
-
-
-// if (!hasWallAt(cubscene, newplayerx + cubscene->player->radius,
-// 		newplayery + cubscene->player->radius) &&
-// 		!hasWallAt(cubscene, newplayerx - cubscene->player->radius,
-// 		newplayery - cubscene->player->radius)
-// 		&& !hasWallAt(cubscene, newplayerx + cubscene->player->radius,
-// 		newplayery - cubscene->player->radius)
-// 		&& !hasWallAt(cubscene, newplayerx - cubscene->player->radius,
-// 		newplayery + cubscene->player->radius)){
-//     	cubscene->player->x = newplayerx;
-// 		cubscene->player->y = newplayery;
-//     }

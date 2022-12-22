@@ -22,7 +22,7 @@ PARSING			=  	src/parsing/cubscene_parsing.c \
 					$(addsuffix .c, $(addprefix src/parsing/lexer/, $(LEXER))) \
 					$(addsuffix .c, $(addprefix src/parsing/parsing_tools/, $(TOOLS)))
 
-EXECUTION		=	canvas render/map_render
+EXECUTION		=	canvas render/map_render render/rays_rendering
 
 SRCS			= 	$(GENERAL_TOOLS) $(PARSING) \
 					$(addsuffix .c, $(addprefix src/execution/, $(EXECUTION)))

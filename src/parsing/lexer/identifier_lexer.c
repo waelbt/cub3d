@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:18:13 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/20 19:29:01 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/22 03:40:53 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ void	fill_textures(t_cubscene *cubscene, t_lexer *lexer, char *find)
 
 	i = -1;
 	types = fill_types();
-	while (++i < TYPES_SIZE)
+	while (++i < 4)
 		if (!ft_strcmp(find, (char *) types[i]))
 			break ;
-	if (i == TYPES_SIZE)
+	if (i == 4)
 		ft_error("identifier invalid");
 	if (cubscene->texture->path[i])
 		ft_error("repeated identifier");

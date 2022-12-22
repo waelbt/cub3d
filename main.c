@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:43:24 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/22 03:09:38 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/22 04:29:34 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,22 @@ void render_map(t_cubscene *cubscene)
 
 int render(t_cubscene *cubscene)
 {
-	int x;
-	int y;
+	// int x;
+	// int y;
+	int i;
 
+	i  = -1;
 	render_map(cubscene);
 	update_player(cubscene);
+	cast_all_rays(cubscene);
+	while (++i < cubscene->_width)
+		ray_render(cubscene, i);
 	render_player(cubscene, RED);
-	x = cubscene->player->x - cos(cubscene->player->rotationAngle) * 30;
-	y = cubscene->player->y - sin(cubscene->player->rotationAngle) * 30;
-	line(cubscene,  x, y,  RED);
+	// x = cubscene->player->x - cos(cubscene->player->rotationAngle) * 30;
+	// y = cubscene->player->y - sin(cubscene->player->rotationAngle) * 30;
+	// line(cubscene,  x, y,  RED);
 	mlx_put_image_to_window(cubscene->mlx, cubscene->win, cubscene->canvas->img, 0, 0);
+	ft_free_rays(cubscene);
 	return 0;
 }
 
