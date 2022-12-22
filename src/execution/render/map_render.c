@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/22 01:42:53 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/22 03:29:30 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int hasWallAt(t_cubscene *cubscene, int x, int y)
 
 	i = roundf((double)x / REC_SIZE);
 	j = roundf((double)y / REC_SIZE);
-	printf("i %d j %d x %d y %d\n", i, j, x, y);
 	if (x < 0 || y < 0 || y >= cubscene->_height
 		|| x >= cubscene->_width || i >= (int) ft_strlen(cubscene->map[j]))
 		return (1);
@@ -119,22 +118,43 @@ int hasWallAt(t_cubscene *cubscene, int x, int y)
 void update_player(t_cubscene *cubscene)
 {
 	int movesptep;
-    int newplayerx;
-    int newplayery;
+    int newplayerx[3];
+    int newplayery[3];
 
 	cubscene->player->rotationAngle += cubscene->player->turnDirection * cubscene->player->rotationspeed;
 	movesptep = cubscene->player->walkDirection * cubscene->player->movespeed;
-	newplayerx = movesptep;
-	newplayery = movesptep;
+	newplayerx[0] = movesptep;
+	newplayery[0] = movesptep;
 	if (cubscene->player->walkDirection != 0)
 	{
-		newplayerx *= cos(cubscene->player->rotationAngle);
-		newplayery *= sin(cubscene->player->rotationAngle);
+		newplayerx[0] *= cos(cubscene->player->rotationAngle);
+		newplayery[0] *= sin(cubscene->player->rotationAngle);
 	}
-	newplayerx += cubscene->player->x;
-	newplayery += cubscene->player->y;
-    if (!hasWallAt(cubscene, newplayerx, newplayery)){
-    	cubscene->player->x = newplayerx;
-		cubscene->player->y = newplayery;
+	newplayerx[0] += cubscene->player->x;
+	newplayery[0] += cubscene->player->y;
+	newplayerx[1] = newplayerx[0] + cubscene->player->radius;
+	newplayerx[2] =  newplayerx[0] - cubscene->player->radius;
+	newplayery[1] = newplayery[0] + cubscene->player->radius;
+	newplayery[2] =  newplayery[0] - cubscene->player->radius;
+    if (!hasWallAt(cubscene, newplayerx[1], newplayery[1])
+		&& !hasWallAt(cubscene, newplayerx[2], newplayery[2])
+		&& !hasWallAt(cubscene, newplayerx[1], newplayery[2])
+		&& !hasWallAt(cubscene, newplayerx[2],newplayery[1]))
+	{
+    	cubscene->player->x = newplayerx[0];
+		cubscene->player->y = newplayery[0];
     }
 }
+
+
+// if (!hasWallAt(cubscene, newplayerx + cubscene->player->radius,
+// 		newplayery + cubscene->player->radius) &&
+// 		!hasWallAt(cubscene, newplayerx - cubscene->player->radius,
+// 		newplayery - cubscene->player->radius)
+// 		&& !hasWallAt(cubscene, newplayerx + cubscene->player->radius,
+// 		newplayery - cubscene->player->radius)
+// 		&& !hasWallAt(cubscene, newplayerx - cubscene->player->radius,
+// 		newplayery + cubscene->player->radius)){
+//     	cubscene->player->x = newplayerx;
+// 		cubscene->player->y = newplayery;
+//     }

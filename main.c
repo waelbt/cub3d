@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:43:24 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/22 01:46:24 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/22 03:09:38 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ void render_map(t_cubscene *cubscene)
 				rec(cubscene->canvas, i, j, cubscene->floor);
 			else if (cubscene->map[j][i] == '1')
 				rec(cubscene->canvas, i, j, cubscene->ceilling);
-			// else if (cubscene->map[j][i] == 32)
-			// 	rec(cubscene->canvas, i, j, cubscene->floor);
 		}
-	}	
+	}
 }
 
 int render(t_cubscene *cubscene)
