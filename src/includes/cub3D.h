@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 01:45:06 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/22 04:37:57 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/22 04:39:58 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define 	DOWN_ARROW			125
 # define    LEFT_ARROW			123
 # define 	RIGHT_ARROW			124
-# define	FIELD_OF_ANGLE	60 * (M_PI / 180)
+# define	FIELD_OF_ANGLE		60 * (M_PI / 180)
 
 
 typedef struct color

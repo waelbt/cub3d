@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 04:00:18 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/22 04:32:48 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/22 05:01:49 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,8 @@ void ray_render(t_cubscene *cubscene, int index)
 	int x;
 	int y;
 	
-	x = cubscene->player->x - cos(cubscene->rays[index]->angle) * 30;
-	y = cubscene->player->y - sin(cubscene->rays[index]->angle) * 30;
-	 if (x < 0 || y < 0 || x >= cubscene->_width
-        || y >= cubscene->_height)
-		return ;
+	x = cubscene->player->x - cos(cubscene->rays[index]->angle) * 60;
+	y = cubscene->player->y - sin(cubscene->rays[index]->angle) * 60;
 	line(cubscene, x, y, YELLOW);
 }
 

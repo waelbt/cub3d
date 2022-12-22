@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:38:15 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/20 17:38:16 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/22 04:40:30 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,6 @@ int		identifier_value(t_lexer *lexer)
 		return 0;
 	return 1;
 }
-
-// int		identifier_texture_value(t_lexer *lexer)
-// {
-// 	if (lexer->c == '\0')
-// 		ft_error("invalid identifier");
-// 	if (lexer->c == '\n')
-// 		return 0;
-// 	return 0;
-//}
 
 int		identifier_color(t_lexer *lexer)
 {
