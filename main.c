@@ -50,6 +50,8 @@ void render_map(t_cubscene *cubscene)
 int render(t_cubscene *cubscene)
 {
 	int i;
+	int	x;
+	int	y;
 
 	i  = -1;
 	ft_clear_4adi_n7aydha(cubscene);
@@ -59,6 +61,9 @@ int render(t_cubscene *cubscene)
 	while (++i < cubscene->_width)
 		ray_render(cubscene, i);
 	render_player(cubscene, RED);
+	x = cubscene->player->x + cos(cubscene->player->rotationAngle) * 30;
+	y = cubscene->player->y + sin(cubscene->player->rotationAngle) * 30;
+	line(cubscene,  x, y,  RED);
 	mlx_put_image_to_window(cubscene->mlx, cubscene->win, cubscene->canvas->img, 0, 0);
 	ft_free_rays(cubscene);
 	return 0;
