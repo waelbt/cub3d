@@ -40,7 +40,7 @@ $(NAME): $(HEADER) main.c $(LIBFT) $(OBJ)
 $(LIBFT) :
 	@make -C src/general_tools/libft/
 clean :
-#@make clean -C src/general_tools/libft/
+	@make clean -C src/general_tools/libft/
 	@$(RM) $(OBJ)
 	@$(RM)	cub3D.dSYM
 
