@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:50:37 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/22 04:40:23 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/23 17:19:41 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int ft_position(char *str)
 	{
 		if (str[counter] == 'N'
 			|| str[counter] == 'S'
-			|| str[counter] == 'O'
+			|| str[counter] == 'E'
 			|| str[counter] == 'W')
 			return counter;
 	}

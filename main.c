@@ -6,27 +6,12 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:43:24 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/22 07:23:06 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/23 20:22:03 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "src/includes/cub3D.h"
 
-void ft_clear_4adi_n7aydha(t_cubscene *cubscene)
-{
-	int i;
-	int j;
-
-	j = -1;
-	while (++j < cubscene->map_height)
-	{
-		i = -1;
-		while(++i < cubscene->map_width)
-		{
-			rec(cubscene->canvas, i, j, get_color(init_lexer("0, 0 , 0\n")));
-		}
-	}
-}
 void render_map(t_cubscene *cubscene)
 {
 	int i;
@@ -50,22 +35,17 @@ void render_map(t_cubscene *cubscene)
 int render(t_cubscene *cubscene)
 {
 	int i;
-	int	x;
-	int	y;
 
 	i  = -1;
-	ft_clear_4adi_n7aydha(cubscene);
 	render_map(cubscene);
 	update_player(cubscene);
 	cast_all_rays(cubscene);
 	while (++i < cubscene->_width)
 		ray_render(cubscene, i);
+	line(cubscene, cubscene->rays[cubscene->_width/ 2]->_x,cubscene->rays[cubscene->_width/ 2]->_y, RED);
 	render_player(cubscene, RED);
-	x = cubscene->player->x + cos(cubscene->player->rotationAngle) * 30;
-	y = cubscene->player->y + sin(cubscene->player->rotationAngle) * 30;
-	line(cubscene,  x, y,  RED);
 	mlx_put_image_to_window(cubscene->mlx, cubscene->win, cubscene->canvas->img, 0, 0);
-	ft_free_rays(cubscene);
+	//ft_free_rays(cubscene);
 	return 0;
 }
 
@@ -73,25 +53,25 @@ int key_handler(int keycode, t_cubscene * cubscene)
 {
 	if (keycode == 53 || keycode < 0)
 		exit(0);
-	if (keycode == RIGHT || keycode == RIGHT_ARROW)
+	else if (keycode == DOWN || keycode == DOWN_ARROW)
+		cubscene->player->walkDirection = -1;
+	else if (keycode == UP || keycode == UP_ARROW)
+		cubscene->player->walkDirection = 1;
+	else if (keycode == RIGHT || keycode == RIGHT_ARROW)
 		cubscene->player->turnDirection = 1;
 	else if (keycode == LEFT || keycode == LEFT_ARROW)
 		cubscene->player->turnDirection = -1;
-	else if (keycode == DOWN || keycode == DOWN_ARROW)
-		cubscene->player->walkDirection = 1;
-	else if (keycode == UP || keycode == UP_ARROW)
-		cubscene->player->walkDirection = -1;
 	return (0);
 }
 
 int key_release(int keycode, t_cubscene * cubscene)
 {
+	if (keycode == DOWN || keycode == DOWN_ARROW ||
+		keycode == UP || keycode == UP_ARROW)
+		cubscene->player->walkDirection = 0;
 	if (keycode == RIGHT || keycode == RIGHT_ARROW
 		|| keycode == LEFT || keycode == LEFT_ARROW)
 		cubscene->player->turnDirection = 0;
-	if (keycode == DOWN || keycode == DOWN_ARROW ||
-	keycode == UP || keycode == UP_ARROW)
-		cubscene->player->walkDirection = 0;
 	return (0);
 }
 

@@ -6,151 +6,166 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 04:00:18 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/22 07:29:06 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/23 21:49:25 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-double normalize_angle(double angle)
-{
-	angle = fmod(angle, (2 * M_PI));
-	if (angle < 0)
-		angle = (2 * M_PI) + angle;
-	return angle;	
-}
-
-t_rays *new_ray(double angle)
+t_rays *new_ray(double angle, t_cubscene *cubscene)
 {
 	t_rays *ray;
 
 	ray = (t_rays *) malloc(sizeof(t_rays));
-	ray->angle = normalize_angle(angle);
-	ray->wallhitx = 0;
-	ray->wallhity = 0;
+	ray->angle = fmod(angle, (2 * M_PI));
+	if(ray->angle < 0){
+		ray->angle += 2 * M_PI;
+	}
+	ray->_x = cubscene->player->x;
+	ray->_y = cubscene->player->y;
+	/*laila kalt khassna ndiro lpostion deyal player fe blasst 0 0 */
 	ray->distance = 0;
-	ray->israyfacingup = (angle > 0) && (angle < M_PI);
-	ray->israyfacingdown = !ray->israyfacingup ;
-	ray->israyfacingright = (angle < (0.5 * M_PI)) || (angle > (1.5 * M_PI));
-	ray->israyfacingleft = !ray->israyfacingright;
+	ray->is_ray_facing_down = ((ray->angle >= 0) && (ray->angle <= M_PI));
+	ray->is_ray_facing_up = !ray->is_ray_facing_down;
+	ray->is_ray_facing_right = ((ray->angle <= 0.5 * M_PI) || (ray->angle >= 1.5 * M_PI));
+	ray->is_ray_facing_left = !ray->is_ray_facing_right;
 	return ray;
-}
-
-double distance_between_points(int x1, int y1, int x2, int y2)
-{
-	return sqrt(pow((x2 - x1), 2) + pow((y2 - y1), 2));
-}
-
-void cast(t_cubscene *cubscene, t_rays *ray)
-{
-	int xintercept;
-	int yintercept;
-	int xstep;
-	int ystep;
-	bool foundhorzwallhit;
-	int horzwallhitx = 0;
-	int horzwallhity = 0;
-
-	ystep = REC_SIZE;
-	foundhorzwallhit = false;
-	yintercept = floor(cubscene->player->y / REC_SIZE) * REC_SIZE;
-	if (!ray->israyfacingup)
-	{
-		ystep *= -1;
-		yintercept += REC_SIZE;
-	}
-	xintercept = cubscene->player->x
-		+ (yintercept - cubscene->player->x)
-		/ tan(ray->angle);
-	xstep = REC_SIZE / tan(ray->angle);
-	if (ray->israyfacingleft && xstep > 0)
-		xstep *= -1;
-	if (ray->israyfacingright && xstep < 0)
-		xstep *= -1;
-
-	int nexthorzwallhittx = xintercept;
-	int nexthorzwallhitty = yintercept;
-
-	if (ray->israyfacingup)
-		nexthorzwallhitty--;
-	while (nexthorzwallhittx >= 0 && nexthorzwallhittx <= cubscene->_width
-		&& nexthorzwallhitty >= 0 && nexthorzwallhitty <= cubscene->_height)
-	{
-		if (hasWallAt(cubscene, nexthorzwallhittx, nexthorzwallhitty))
-		{
-			foundhorzwallhit = true;
-			horzwallhitx = nexthorzwallhittx;
-			horzwallhity = nexthorzwallhitty;
-			//line(cubscene, ray->wallhitx, ray->wallhity, YELLOW);
-			break;
-		}
-		nexthorzwallhittx +=xstep;
-		nexthorzwallhitty +=ystep;
-	}
-	/*********************************/
-	bool foundVertWallHit = false;
-    int vertWallHitX = 0;
-    int vertWallHitY = 0;
-
-	xstep = REC_SIZE;
-	xintercept = floor(cubscene->player->x / REC_SIZE) * REC_SIZE;
-	if (!ray->israyfacingright)
-	{
-		ystep *= -1;
-		yintercept += REC_SIZE;
-	}
-	yintercept = cubscene->player->y
-		+ (xintercept - cubscene->player->x)
-		/ tan(ray->angle);
-	xstep = REC_SIZE / tan(ray->angle);
-	if (ray->israyfacingup && xstep > 0)
-		xstep *= -1;
-	if (ray->israyfacingdown && xstep < 0)
-		xstep *= -1;
-	int nextverttouchx = xintercept;
-	int nextverttouchy = yintercept;
-	if (ray->israyfacingleft)
-		nextverttouchx--;
-	
-	while (nextverttouchx >= 0 && nextverttouchx <= cubscene->_width
-		&& nextverttouchy >= 0 && nextverttouchy <= cubscene->_height)
-	{
-		if (hasWallAt(cubscene, nextverttouchx, nextverttouchy))
-		{
-			foundVertWallHit = true;
-			vertWallHitX = nextverttouchx;
-			vertWallHitY = nextverttouchy;
-			//line(cubscene, ray->wallhitx, ray->wallhity, YELLOW);
-			break;
-		}
-		nextverttouchx +=xstep;
-		nextverttouchy +=ystep;
-	}
-	int horzhitdistance = (foundhorzwallhit) ? distance_between_points(cubscene->player->x, cubscene->player->y, horzwallhitx, horzwallhity) :
-	INT_MAX;
-	int verhitdistance = (foundVertWallHit) ? distance_between_points(cubscene->player->x, cubscene->player->y, vertWallHitX, vertWallHitY) :
-	INT_MAX;
-	if (horzhitdistance < verhitdistance)
-	{
-		ray->wallhitx = horzwallhitx;
-		ray->wallhity = horzwallhity;
-	}
-	else
-	{
-		ray->wallhitx = vertWallHitX;
-		ray->wallhity = horzwallhity;
-	}
 }
 
 void ray_render(t_cubscene *cubscene, int index)
 {
-	line(cubscene, cubscene->rays[index]->wallhitx, cubscene->rays[index]->wallhity, YELLOW);
+	line(cubscene, cubscene->rays[index]->_x, cubscene->rays[index]->_y, YELLOW);
+}
+
+double *hor_intersection(t_cubscene *cubscene, int index)
+{
+	double intercept[2];
+	double step[2];
+	double nextHorzTouch[2];
+	double *hit;
+	int		a;
+
+	a = 0;
+	hit = malloc(sizeof(double) * 3);
+	hit[HIT_STAT] = 0;
+	intercept[Y] = floor(cubscene->player->y / REC_SIZE) * REC_SIZE;
+	if (cubscene->rays[index]->is_ray_facing_down)
+		intercept[Y] += REC_SIZE;
+	intercept[X] = cubscene->player->x + (intercept[Y] - cubscene->player->y) / tan(cubscene->rays[index]->angle);
+	step[Y] = REC_SIZE;
+	if (cubscene->rays[index]->is_ray_facing_up)
+		step[Y] *= -1;
+	step[X] = REC_SIZE / tan(cubscene->rays[index]->angle);
+	if (cubscene->rays[index]->is_ray_facing_left && step[X] > 0)
+		step[X] *= -1;
+	if (cubscene->rays[index]->is_ray_facing_right && step[X] < 0)
+		step[X] *= -1;
+	nextHorzTouch[X] = intercept[X];
+	nextHorzTouch[Y] = intercept[Y];
+	while (nextHorzTouch[X] >= 0 && nextHorzTouch[X] <= cubscene->_width
+		&& nextHorzTouch[Y] >= 0 && nextHorzTouch[Y] <= cubscene->_height)
+	{
+		a = 0;
+		if (cubscene->rays[index]->is_ray_facing_up)
+			a = 1;
+		if (hasWallAt(cubscene, nextHorzTouch[X], nextHorzTouch[Y] - a))
+		{
+			hit[HIT_STAT] = 1;
+			hit[X] =  nextHorzTouch[X];
+			hit[Y] =  nextHorzTouch[Y];
+			break;
+		}
+		nextHorzTouch[X] += step[X];
+		nextHorzTouch[Y] += step[Y];
+	}
+	return hit;
+}
+
+
+
+double *ver_intersection(t_cubscene *cubscene, int index)
+{
+	double intercept[2];
+	double step[2];
+	double nextverTouch[2];
+	double *hit;
+	int		a;
+
+	a = 0;
+	hit = malloc(sizeof(double) * 3);
+	hit[HIT_STAT] = 0;
+	intercept[X] = floor(cubscene->player->x / REC_SIZE) * REC_SIZE;
+	if (cubscene->rays[index]->is_ray_facing_right)
+		intercept[X] += REC_SIZE;
+	intercept[Y] = cubscene->player->y + (intercept[X] - cubscene->player->x) * tan(cubscene->rays[index]->angle);
+	step[X] = REC_SIZE;
+	if (cubscene->rays[index]->is_ray_facing_left)
+		step[X] *= -1;
+	step[Y] = REC_SIZE * tan(cubscene->rays[index]->angle);
+	if (cubscene->rays[index]->is_ray_facing_up && step[Y] > 0)
+		step[Y] *= -1;
+	if (cubscene->rays[index]->is_ray_facing_down && step[Y] < 0)
+		step[Y] *= -1;
+	nextverTouch[X] = intercept[X];
+	nextverTouch[Y] = intercept[Y];
+	while (nextverTouch[X] >= 0 && nextverTouch[X] <= cubscene->_width
+		&& nextverTouch[Y] >= 0 && nextverTouch[Y] <= cubscene->_height)
+	{
+		a = 0;
+		if (cubscene->rays[index]->is_ray_facing_left)
+			a = 1;
+		if (hasWallAt(cubscene, nextverTouch[X] - a, nextverTouch[Y]))
+		{
+			hit[HIT_STAT] = 1;
+			hit[X] =  nextverTouch[X];
+			hit[Y] =  nextverTouch[Y];
+			break;
+		}
+		else
+		{
+			nextverTouch[X] += step[X];
+			nextverTouch[Y] += step[Y];
+		}
+	}
+	return hit;
+}
+
+#include <limits.h>
+
+double distance(double x1, double y1, double x2, double y2)
+{
+    return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+}
+void intersection(t_cubscene *cubscene, int index)
+{
+	double *horz_hit;
+	double *ver_hit;
+	double horzditance = INT_MAX;
+	double verditance = INT_MAX;
+
+	horz_hit = hor_intersection(cubscene, index);
+	ver_hit = ver_intersection(cubscene, index);
+	if (horz_hit[HIT_STAT])
+		horzditance = distance(cubscene->player->x, cubscene->player->y
+		, horz_hit[X], horz_hit[Y]);
+	if (ver_hit[HIT_STAT])
+		verditance = distance(cubscene->player->x, cubscene->player->y
+		, ver_hit[X], ver_hit[Y]);
+	if (verditance < horzditance)
+	{
+		cubscene->rays[index]->_x = ver_hit[X];
+		cubscene->rays[index]->_y = ver_hit[Y];
+	}
+	else
+	{
+		cubscene->rays[index]->_x = horz_hit[X];
+		cubscene->rays[index]->_y = horz_hit[Y];
+	}
 }
 
 void cast_all_rays(t_cubscene *cubscene)
 {
 	int column_id;
-	t_rays *ray;
 	double rayAngle;
 
 	column_id = 0;
@@ -159,9 +174,8 @@ void cast_all_rays(t_cubscene *cubscene)
 	
 	while (column_id < cubscene->_width)
 	{
-		ray = new_ray(rayAngle);
-		cast(cubscene, ray);
-		cubscene->rays[column_id] = ray;
+		cubscene->rays[column_id] = new_ray(rayAngle, cubscene);
+		intersection(cubscene, column_id);
 		rayAngle += FIELD_OF_ANGLE / cubscene->_width;
 		column_id++;
 	}

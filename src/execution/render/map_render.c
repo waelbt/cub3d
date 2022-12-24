@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/22 07:23:58 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/23 19:27:10 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ void line(t_cubscene *cubscene, int x, int y, int color)
 	float yinc;
 	float tmpx;
 	float tmpy;
-	int center;
 
 	i = -1;
-	center = REC_SIZE / 2;
 	dx = x - cubscene->player->x;
 	dy = y - cubscene->player->y;
 	if (abs(dx) > abs(dy))
@@ -53,8 +51,8 @@ void line(t_cubscene *cubscene, int x, int y, int color)
 		steps = abs(dy);
 	xinc = dx / (float) steps;
 	yinc = dy / (float) steps;
-	tmpx = cubscene->player->x + center;
-	tmpy = cubscene->player->y + center;
+	tmpx = cubscene->player->x;
+	tmpy = cubscene->player->y;
 	while (++i <= steps)
 	{
 		write_pixel(cubscene->canvas, tmpx, tmpy, color);
@@ -69,19 +67,17 @@ void render_player(t_cubscene *cubscene,int color)
 	int j;
 	int point_x;
 	int point_y;
-	int center;
 	int radius;
 	
 	j = -1;
-	center = REC_SIZE / 2;
 	radius = cubscene->player->radius;
 	while(radius > 0)
 	{
 		i = -1;
 		while(++i < 360)
 		{
-			point_x = center + radius * cos(i);
-			point_y = center + radius * sin(i);
+			point_x = radius * cos(i);
+			point_y = radius * sin(i);
 			write_pixel(cubscene->canvas, point_x + (cubscene->player->x),
 			point_y + (cubscene->player->y), color);
 		}
@@ -94,8 +90,8 @@ int hasWallAt(t_cubscene *cubscene, int x, int y)
 	int i;
 	int j;
 
-	i = roundf((double)x / REC_SIZE);
-	j = roundf((double)y / REC_SIZE);
+	i = floor((double)x / REC_SIZE);
+	j = floor((double)y / REC_SIZE);
 	if (x < 0 || y < 0 || y >= cubscene->_height
 		|| x >= cubscene->_width || i >= (int) ft_strlen(cubscene->map[j]))
 		return (1);

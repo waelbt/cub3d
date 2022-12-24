@@ -6,7 +6,7 @@ CC				=	cc
 
 HEADER			=	src/includes/cub3D.h
 
-CFLAGS			=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS			=	-Wall -Wextra -Werror -fsanitize=address
 
 GNL				=	get_next_line_utils get_next_line
 

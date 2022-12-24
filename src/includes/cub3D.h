@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 01:45:06 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/22 07:19:05 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/23 21:41:52 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include   "libft.h"
 # include   "get_next_line.h"
 # include   "lexer.h"
-# include 	"limits.h"
 # include	"canvas.h"
 
 # define    STDERR  			2
@@ -43,7 +42,10 @@
 # define    LEFT_ARROW			123
 # define 	RIGHT_ARROW			124
 # define	FIELD_OF_ANGLE		60 * (M_PI / 180)
-
+# define 	CENTER				REC_SIZE / 2
+# define	X					0
+# define 	Y					1
+# define 	HIT_STAT				2
 
 typedef struct color
 {
@@ -68,13 +70,13 @@ typedef struct player
 typedef struct ray
 {
 	double angle;
-	int	   wallhitx;
-	int	   wallhity;
-	int	   distance;
-	double israyfacingdown;
-	double israyfacingup;
-	double israyfacingright;
-	double israyfacingleft;
+	double _x;
+	double _y;
+	double distance;
+	bool is_ray_facing_down;
+	bool is_ray_facing_up;
+	bool is_ray_facing_right;
+	bool is_ray_facing_left;
 }t_rays;
 
 typedef struct texture
@@ -126,7 +128,7 @@ void		render_player(t_cubscene *cubscene, int color);
 void		update_player(t_cubscene *cubscene);
 void		line(t_cubscene *cubscene, int x, int y, int color);
 void		ray_render(t_cubscene *cubscene, int index);
-t_rays		*new_ray(double angle);
+t_rays *new_ray(double angle, t_cubscene *cubscene);
 void		cast_all_rays(t_cubscene *cubscene);
 void		ft_free_rays(t_cubscene *cubscene);
 int			hasWallAt(t_cubscene *cubscene, int x, int y);
