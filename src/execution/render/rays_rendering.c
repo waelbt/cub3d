@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 04:00:18 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/23 21:49:25 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/24 20:34:08 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@ t_rays *new_ray(double angle, t_cubscene *cubscene)
 	return ray;
 }
 
-void ray_render(t_cubscene *cubscene, int index)
-{
-	line(cubscene, cubscene->rays[index]->_x, cubscene->rays[index]->_y, YELLOW);
-}
 
 double *hor_intersection(t_cubscene *cubscene, int index)
 {
@@ -43,9 +39,7 @@ double *hor_intersection(t_cubscene *cubscene, int index)
 	double step[2];
 	double nextHorzTouch[2];
 	double *hit;
-	int		a;
 
-	a = 0;
 	hit = malloc(sizeof(double) * 3);
 	hit[HIT_STAT] = 0;
 	intercept[Y] = floor(cubscene->player->y / REC_SIZE) * REC_SIZE;
@@ -62,13 +56,16 @@ double *hor_intersection(t_cubscene *cubscene, int index)
 		step[X] *= -1;
 	nextHorzTouch[X] = intercept[X];
 	nextHorzTouch[Y] = intercept[Y];
+	double x;
+	// if (cubscene->rays[index]->is_ray_facing_up)
+	// 	nextHorzTouch[Y]--;
 	while (nextHorzTouch[X] >= 0 && nextHorzTouch[X] <= cubscene->_width
 		&& nextHorzTouch[Y] >= 0 && nextHorzTouch[Y] <= cubscene->_height)
 	{
-		a = 0;
+		x = 0;
 		if (cubscene->rays[index]->is_ray_facing_up)
-			a = 1;
-		if (hasWallAt(cubscene, nextHorzTouch[X], nextHorzTouch[Y] - a))
+			x  = 1;
+		if (hasWallAt(cubscene, nextHorzTouch[X], nextHorzTouch[Y] - x))
 		{
 			hit[HIT_STAT] = 1;
 			hit[X] =  nextHorzTouch[X];
@@ -89,9 +86,8 @@ double *ver_intersection(t_cubscene *cubscene, int index)
 	double step[2];
 	double nextverTouch[2];
 	double *hit;
-	int		a;
+	double x;
 
-	a = 0;
 	hit = malloc(sizeof(double) * 3);
 	hit[HIT_STAT] = 0;
 	intercept[X] = floor(cubscene->player->x / REC_SIZE) * REC_SIZE;
@@ -111,10 +107,10 @@ double *ver_intersection(t_cubscene *cubscene, int index)
 	while (nextverTouch[X] >= 0 && nextverTouch[X] <= cubscene->_width
 		&& nextverTouch[Y] >= 0 && nextverTouch[Y] <= cubscene->_height)
 	{
-		a = 0;
+		x = 0;
 		if (cubscene->rays[index]->is_ray_facing_left)
-			a = 1;
-		if (hasWallAt(cubscene, nextverTouch[X] - a, nextverTouch[Y]))
+			x  = 1;
+		if (hasWallAt(cubscene, nextverTouch[X] - x, nextverTouch[Y]))
 		{
 			hit[HIT_STAT] = 1;
 			hit[X] =  nextverTouch[X];
@@ -132,10 +128,11 @@ double *ver_intersection(t_cubscene *cubscene, int index)
 
 #include <limits.h>
 
-double distance(double x1, double y1, double x2, double y2)
+double distance(t_cubscene *cubscene, double x2, double y2)
 {
-    return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+	return (x2 - cubscene->player->x) * cos(cubscene->player->rotationAngle) + (y2 -  cubscene->player->y) * sin(cubscene->player->rotationAngle); 
 }
+
 void intersection(t_cubscene *cubscene, int index)
 {
 	double *horz_hit;
@@ -146,18 +143,18 @@ void intersection(t_cubscene *cubscene, int index)
 	horz_hit = hor_intersection(cubscene, index);
 	ver_hit = ver_intersection(cubscene, index);
 	if (horz_hit[HIT_STAT])
-		horzditance = distance(cubscene->player->x, cubscene->player->y
-		, horz_hit[X], horz_hit[Y]);
+		horzditance = distance(cubscene, horz_hit[X], horz_hit[Y]);
 	if (ver_hit[HIT_STAT])
-		verditance = distance(cubscene->player->x, cubscene->player->y
-		, ver_hit[X], ver_hit[Y]);
+		verditance = distance(cubscene, ver_hit[X], ver_hit[Y]);
 	if (verditance < horzditance)
 	{
+		cubscene->rays[index]->distance = verditance;
 		cubscene->rays[index]->_x = ver_hit[X];
 		cubscene->rays[index]->_y = ver_hit[Y];
 	}
 	else
 	{
+		cubscene->rays[index]->distance = horzditance;
 		cubscene->rays[index]->_x = horz_hit[X];
 		cubscene->rays[index]->_y = horz_hit[Y];
 	}
@@ -170,13 +167,13 @@ void cast_all_rays(t_cubscene *cubscene)
 
 	column_id = 0;
 	cubscene->rays = (t_rays **) malloc(sizeof(t_rays) * cubscene->_width);
-	rayAngle = cubscene->player->rotationAngle - (FIELD_OF_ANGLE / 2);
+	rayAngle = cubscene->player->rotationAngle - ((double) FIELD_OF_ANGLE / 2);
 	
 	while (column_id < cubscene->_width)
 	{
 		cubscene->rays[column_id] = new_ray(rayAngle, cubscene);
 		intersection(cubscene, column_id);
-		rayAngle += FIELD_OF_ANGLE / cubscene->_width;
+		rayAngle += ((double) FIELD_OF_ANGLE) / cubscene->_width;
 		column_id++;
 	}
 }

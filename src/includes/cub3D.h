@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 01:45:06 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/23 21:41:52 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/24 20:43:20 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include	"canvas.h"
 
 # define    STDERR  			2
-# define	REC_SIZE 			40
+# define	REC_SIZE 			60
 # define 	RED 				16711680
 # define 	YELLOW 				50000000
 # define	UP					13
@@ -45,7 +45,8 @@
 # define 	CENTER				REC_SIZE / 2
 # define	X					0
 # define 	Y					1
-# define 	HIT_STAT				2
+# define 	HIT_STAT			2
+# define	SCALE				0.4
 
 typedef struct color
 {
@@ -122,14 +123,15 @@ void		add_lines(t_cubscene *cubscene, char *str);
 void		check_map(t_cubscene *cubscene);
 void		parsing(int fd, t_cubscene *cubscene);
 
-void 		rec(t_canvas *canvas, int x, int y, t_color *color);
+void 		mini_rec(t_canvas *canvas, int x, int y, int color);
 t_player	*new_player(int x, int y, char character);
 void		render_player(t_cubscene *cubscene, int color);
 void		update_player(t_cubscene *cubscene);
-void		line(t_cubscene *cubscene, int x, int y, int color);
+void		line(t_cubscene *cubscene, int x, int y, int color, double scale);
 void		ray_render(t_cubscene *cubscene, int index);
 t_rays *new_ray(double angle, t_cubscene *cubscene);
 void		cast_all_rays(t_cubscene *cubscene);
 void		ft_free_rays(t_cubscene *cubscene);
-int			hasWallAt(t_cubscene *cubscene, int x, int y);
+int			hasWallAt(t_cubscene *cubscene, double x, double y);
+void		projectewalls(t_cubscene* cubscene);
 #endif

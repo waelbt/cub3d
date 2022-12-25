@@ -6,13 +6,50 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/23 19:27:10 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/24 21:05:47 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-void rec(t_canvas *canvas, int x, int y, t_color *color)
+void rec(t_canvas *canvas, int x, int y, int w, int h, int color)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (i < w)
+	{
+		while (j < h)
+		{
+			write_pixel(canvas, x+i, y + j, color);
+			j++;
+		}
+		i++;
+	}
+
+}
+
+void  projectewalls(t_cubscene* cubscene)
+{ 
+  int i;
+
+  i = 0;
+  while (i <cubscene->_width )
+  {
+    double  distance_projection_plane;
+    double wall_strip_height;
+
+    distance_projection_plane = ((cubscene->_width / 2) / tan(FIELD_OF_ANGLE / 2));
+    wall_strip_height = (REC_SIZE / cubscene->rays[i]->distance) * distance_projection_plane;
+    rec(cubscene->canvas, i, (cubscene->_height / 2) - (wall_strip_height / 2),1, wall_strip_height, 0x2D3047);
+	i++;
+  }
+}
+
+
+void mini_rec(t_canvas *canvas, int x, int y, int color)
 {
 	int i;
 	int j;
@@ -22,16 +59,11 @@ void rec(t_canvas *canvas, int x, int y, t_color *color)
 	{
 		i = -1;
 		while(++i < REC_SIZE)
-		{
-			if (i == 0 || i == REC_SIZE - 1 || j == REC_SIZE -1 || j == 0)
-				write_pixel(canvas, i + (x * REC_SIZE), j + (y * REC_SIZE), 0);
-			else
-				write_pixel(canvas, i + (x * REC_SIZE), j + (y * REC_SIZE), convert_color(color));
-		}
+			write_pixel(canvas, (i + (x * REC_SIZE)) * SCALE, (j + (y * REC_SIZE)) * SCALE, color);
 	}
 }
 
-void line(t_cubscene *cubscene, int x, int y, int color)
+void line(t_cubscene *cubscene, int x, int y, int color, double scale)
 {
 	int dx;
 	int dy;
@@ -43,16 +75,16 @@ void line(t_cubscene *cubscene, int x, int y, int color)
 	float tmpy;
 
 	i = -1;
-	dx = x - cubscene->player->x;
-	dy = y - cubscene->player->y;
+	dx = x * scale - cubscene->player->x * scale;
+	dy = y * scale - cubscene->player->y * scale;
 	if (abs(dx) > abs(dy))
 		steps = abs(dx);
 	else
 		steps = abs(dy);
 	xinc = dx / (float) steps;
 	yinc = dy / (float) steps;
-	tmpx = cubscene->player->x;
-	tmpy = cubscene->player->y;
+	tmpx = cubscene->player->x * scale;
+	tmpy = cubscene->player->y * scale;
 	while (++i <= steps)
 	{
 		write_pixel(cubscene->canvas, tmpx, tmpy, color);
@@ -76,22 +108,22 @@ void render_player(t_cubscene *cubscene,int color)
 		i = -1;
 		while(++i < 360)
 		{
-			point_x = radius * cos(i);
-			point_y = radius * sin(i);
-			write_pixel(cubscene->canvas, point_x + (cubscene->player->x),
-			point_y + (cubscene->player->y), color);
+			point_x = radius * cos(i) * SCALE;
+			point_y = radius * sin(i) * SCALE;
+			write_pixel(cubscene->canvas, point_x + (cubscene->player->x * SCALE),
+			point_y + (cubscene->player->y * SCALE), color);
 		}
 		radius--;
 	}
 }
 
-int hasWallAt(t_cubscene *cubscene, int x, int y)
+int hasWallAt(t_cubscene *cubscene, double x, double y)
 {
 	int i;
 	int j;
 
-	i = floor((double)x / REC_SIZE);
-	j = floor((double)y / REC_SIZE);
+	i = floor(x / REC_SIZE);
+	j = floor(y / REC_SIZE);
 	if (x < 0 || y < 0 || y >= cubscene->_height
 		|| x >= cubscene->_width || i >= (int) ft_strlen(cubscene->map[j]))
 		return (1);
