@@ -128,9 +128,9 @@ double *ver_intersection(t_cubscene *cubscene, int index)
 
 #include <limits.h>
 
-double distance(t_cubscene *cubscene, double x2, double y2)
+double distance(t_cubscene *cubscene, int index,double x2, double y2)
 {
-	return (x2 - cubscene->player->x) * cos(cubscene->player->rotationAngle) + (y2 -  cubscene->player->y) * sin(cubscene->player->rotationAngle); 
+	return (x2 - cubscene->player->x) * cos(cubscene->rays[index]->angle) + (y2 -  cubscene->player->y) * sin(cubscene->rays[index]->angle); 
 }
 
 void intersection(t_cubscene *cubscene, int index)
@@ -143,9 +143,9 @@ void intersection(t_cubscene *cubscene, int index)
 	horz_hit = hor_intersection(cubscene, index);
 	ver_hit = ver_intersection(cubscene, index);
 	if (horz_hit[HIT_STAT])
-		horzditance = distance(cubscene, horz_hit[X], horz_hit[Y]);
+		horzditance = distance(cubscene, index,horz_hit[X], horz_hit[Y]);
 	if (ver_hit[HIT_STAT])
-		verditance = distance(cubscene, ver_hit[X], ver_hit[Y]);
+		verditance = distance(cubscene, index,ver_hit[X], ver_hit[Y]);
 	if (verditance < horzditance)
 	{
 		cubscene->rays[index]->distance = verditance;

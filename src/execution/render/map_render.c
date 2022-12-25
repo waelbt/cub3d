@@ -40,9 +40,11 @@ void  projectewalls(t_cubscene* cubscene)
   {
     double  distance_projection_plane;
     double wall_strip_height;
+	double distance;
 
+	distance =  cubscene->rays[i]->distance * cos(cubscene->rays[i]->angle - cubscene->player->rotationAngle);
     distance_projection_plane = ((cubscene->_width / 2) / tan(FIELD_OF_ANGLE / 2));
-    wall_strip_height = (REC_SIZE / cubscene->rays[i]->distance) * distance_projection_plane;
+    wall_strip_height = (REC_SIZE / distance) * distance_projection_plane;
     rec(cubscene->canvas, i, (cubscene->_height / 2) - (wall_strip_height / 2),1, wall_strip_height, 0x2D3047);
 	i++;
   }

@@ -46,7 +46,7 @@
 # define	X					0
 # define 	Y					1
 # define 	HIT_STAT			2
-# define	SCALE				0.4
+# define	SCALE				0.2
 
 typedef struct color
 {
