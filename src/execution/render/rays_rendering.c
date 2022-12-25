@@ -57,8 +57,6 @@ double *hor_intersection(t_cubscene *cubscene, int index)
 	nextHorzTouch[X] = intercept[X];
 	nextHorzTouch[Y] = intercept[Y];
 	double x;
-	// if (cubscene->rays[index]->is_ray_facing_up)
-	// 	nextHorzTouch[Y]--;
 	while (nextHorzTouch[X] >= 0 && nextHorzTouch[X] <= cubscene->_width
 		&& nextHorzTouch[Y] >= 0 && nextHorzTouch[Y] <= cubscene->_height)
 	{

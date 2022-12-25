@@ -104,8 +104,8 @@ typedef struct cubscene
 	//int 		rays_number;
 	t_player	*player;
 	t_texture	*texture;
-	t_color		*ceilling;
-	t_color		*floor; 
+	int			ceilling;
+	int			floor; 
 	char		**map;
 	int			map_height;
 	int			_height;

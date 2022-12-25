@@ -44,9 +44,9 @@ void render_env(t_cubscene *cubscene)
 		{
 			if (cubscene->map[j][i] == '0'
 				|| cubscene->map[j][i] == cubscene->player->character)
-				mini_rec(cubscene->canvas, i, j, convert_color(cubscene->floor));
+				mini_rec(cubscene->canvas, i, j, cubscene->floor);
 			else if (cubscene->map[j][i] == '1')
-				mini_rec(cubscene->canvas, i, j, convert_color(cubscene->ceilling));
+				mini_rec(cubscene->canvas, i, j, 0x2D3047);
 		}
 	}
 }
@@ -79,14 +79,14 @@ void ft_clear(t_cubscene *cubscene)
 	{
 		i = -1;
 		while(++i < cubscene->_width)
-			write_pixel(cubscene->canvas, i, j , convert_color(cubscene->ceilling));
+			write_pixel(cubscene->canvas, i, j , cubscene->ceilling);
 	}
 	while(j < cubscene->_height)	
 	{
 		i = -1;
 		while(++i < cubscene->_width)
-			write_pixel(cubscene->canvas, i, j , convert_color(cubscene->floor));
-		j++;
+			write_pixel(cubscene->canvas, i, j , cubscene->floor);
+		j++; 
 	}
 }
 
@@ -95,7 +95,7 @@ int render(t_cubscene *cubscene)
 	update(cubscene);
 	ft_clear(cubscene);
 	projectewalls(cubscene);
-	//render_minimap(cubscene);
+	render_minimap(cubscene);
 	ft_free_rays(cubscene);
 	mlx_put_image_to_window(cubscene->mlx, cubscene->win, cubscene->canvas->img, 0, 0);
 	return 0;

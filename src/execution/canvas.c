@@ -40,6 +40,17 @@ void write_pixel(t_canvas *canvas, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+unsigned int get_pixel(t_canvas *canvas, int x, int y, int color)
+{
+	char	*dst;
+
+    if (x < 0 || y < 0 || x >= canvas->width
+        || y >= canvas->height)
+		return ;
+	dst = canvas->addr + (y * canvas->line_length + x * (canvas->bits_per_pixel / 8));
+	return *(unsigned int*)dst;
+}
+
 t_player *new_player(int x, int y, char character)
 {
     t_player *player;

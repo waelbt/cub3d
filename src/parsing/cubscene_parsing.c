@@ -21,7 +21,7 @@ t_cubscene	*new_cubscene(void)
 	cubscene = (t_cubscene *) malloc(sizeof(t_cubscene));
 	cubscene->texture = (t_texture *) malloc(sizeof(t_texture));
 	cubscene->texture->path = (char **) malloc(sizeof(char *) * 5);
-	cubscene->floor = NULL;
+	cubscene->floor = 0;
 	cubscene->canvas = NULL;
 	cubscene->mlx = NULL;
 	cubscene->win = NULL;
@@ -31,7 +31,7 @@ t_cubscene	*new_cubscene(void)
 	cubscene->map = malloc(sizeof(char *));
 	cubscene->map[0] = NULL;
 	cubscene->map_height = 0;
-	cubscene->ceilling = NULL;
+	cubscene->ceilling = 0;
 	while (++i < 4)
 		cubscene->texture->path[i] = NULL;
 	return (cubscene);
@@ -115,13 +115,13 @@ void	except_for_the_map(t_cubscene *cubscene, t_lexer *lexer, int *counter)
 	{
 		if (cubscene->floor)
 			ft_error("repeated identifier");
-		cubscene->floor = get_color(lexer);
+		cubscene->floor = convert_color(get_color(lexer));
 	}
 	else if (!ft_strcmp(key, "C"))
 	{
 		if (cubscene->ceilling)
 			ft_error("repeated identifier");
-		cubscene->ceilling = get_color(lexer);
+		cubscene->ceilling = convert_color(get_color(lexer));
 	}
 	else
 		fill_textures(cubscene, lexer, key);
