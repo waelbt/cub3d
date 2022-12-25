@@ -72,6 +72,9 @@ typedef struct ray
 {
 	double angle;
 	double _x;
+	double x_rec;
+	double y_rec;
+	double h_rec;
 	double _y;
 	double distance;
 	bool is_ray_facing_down;
@@ -134,4 +137,5 @@ void		cast_all_rays(t_cubscene *cubscene);
 void		ft_free_rays(t_cubscene *cubscene);
 int			hasWallAt(t_cubscene *cubscene, double x, double y);
 void		projectewalls(t_cubscene* cubscene);
+void rec(t_canvas *canvas, int x, int y, int w, int h, int color);
 #endif

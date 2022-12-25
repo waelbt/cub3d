@@ -1,8 +1,8 @@
 NO textures/wood_strips.xpm
 SO textures/wood.xpm
 
-F 100,100,0
-C     250,154,8
+F 147,183,190
+C 4,138,129
 
 WE textures/wood_box.xpm
 EA textures/rocks.xpm
