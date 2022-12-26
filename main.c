@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:43:24 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 12:40:37 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 14:07:35 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,25 @@ int key_handler(int keycode, t_cubscene * cubscene)
 	if (keycode == 53 || keycode < 0)
 		exit(0);
 	else if (keycode == DOWN || keycode == DOWN_ARROW)
+	{
+		cubscene->frame_rate = 30;
 		cubscene->player->walkDirection = -1;
+	}
 	else if (keycode == UP || keycode == UP_ARROW)
+	{
+		cubscene->frame_rate = 30;
 		cubscene->player->walkDirection = 1;
+	}
 	else if (keycode == RIGHT || keycode == RIGHT_ARROW)
+	{
+		cubscene->frame_rate = 30;
 		cubscene->player->turnDirection = 1;
+	}
 	else if (keycode == LEFT || keycode == LEFT_ARROW)
+	{
+		cubscene->frame_rate = 30;
 		cubscene->player->turnDirection = -1;
+	}
 	return (0);
 }
 
@@ -119,16 +131,10 @@ int key_release(int keycode, t_cubscene * cubscene)
 {
 	if (keycode == DOWN || keycode == DOWN_ARROW ||
 		keycode == UP || keycode == UP_ARROW)
-	{
-		cubscene->frame_rate = 100;
 		cubscene->player->walkDirection = 0;
-	}
 	if (keycode == RIGHT || keycode == RIGHT_ARROW
 		|| keycode == LEFT || keycode == LEFT_ARROW)
-	{
-		cubscene->frame_rate = 100;
 		cubscene->player->turnDirection = 0;
-	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:50:37 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 12:41:37 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 14:05:47 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_cubscene	*new_cubscene(void)
 	cubscene->map = malloc(sizeof(char *));
 	cubscene->map[0] = NULL;
 	cubscene->map_height = 0;
-	cubscene->frame_rate = 100;
+	cubscene->frame_rate = 30;
 	cubscene->ceilling = 0;
 	while (++i < 4)
 		cubscene->texture->path[i] = NULL;
