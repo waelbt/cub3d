@@ -18,6 +18,7 @@ void texture_init(t_cubscene *cubscene)
 	int		height;
 
 	/*protect invalid file*/
+	// store w and h in struct;
 	cubscene->texture->north_image = mlx_xpm_file_to_image(cubscene->mlx, cubscene->texture->path[NO], &width, &height);
 	cubscene->no_canvas = new_canvas(cubscene->texture->north_image, width, height);
 	cubscene->texture->south_image = mlx_xpm_file_to_image(cubscene->mlx, cubscene->texture->path[SO], &width, &height);
@@ -34,7 +35,10 @@ unsigned int get_color_from_img(t_canvas *canvas, int x, int y)
 
     if (x < 0 || y < 0 || x > canvas->width
         || y > canvas->height)
-		ft_error("get color overflowed, check your boucle codition idiot -_-");
+		{
+			printf("%d    %d\n", x, y);
+			ft_error("get color overflowed, check your boucle codition idiot -_-");
+		}
 	dst = canvas->addr + (y * canvas->line_length + x * (canvas->bits_per_pixel / 8));
 	return (*(unsigned int*)dst);
 }

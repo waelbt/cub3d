@@ -18,22 +18,27 @@ void rec(t_cubscene *cubscene, int x, int y, int h)
 	int k = 0;
 	int	color;
 	double i;
+	double	y2 = 620 / h;
+	//get X
 	
-	i = REC_SIZE / 60;
+	i = h / 620; //che7L mn mara ghanktbo each pixel;
 	j = -1;
 	while (++j < h)
 	{
 		k = 0;
+		color = get_color_from_img(cubscene->so_canvas, 619, (int)y2);
 		while ((double)k <= i)
 		{
-			color = get_color_from_img(cubscene->so_canvas, x % 60, (int)floor(60 / REC_SIZE) + k);
-		//	printf("%d    %d\n", x, (int)floor(60 / REC_SIZE));
 			write_pixel(cubscene->canvas, x + 1, y + j , color);
 			k++;
 		}
+		 y2 += y2;
+		 if (y2 >= h)
+			 y2 = 620 / h;
+		// printf("%f   \n", y2);
 	}
 }
-
+///(int)floor(60 / REC_SIZE) + i
 
 
 void  projectewalls(t_cubscene* cubscene)
