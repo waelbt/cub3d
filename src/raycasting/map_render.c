@@ -6,26 +6,35 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 14:19:23 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 21:37:00 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void rec(t_canvas *canvas, int x, int y, int w, int h, int color)
+void rec(t_cubscene *cubscene, int x, int y, int h)
 {
-	int		i;
-	int		j;
-
-	i = -1;
-	while (++i < w)
+	int	j;
+	int k = 0;
+	int	color;
+	double i;
+	
+	i = REC_SIZE / 60;
+	j = -1;
+	while (++j < h)
 	{
-		j = -1;
-		while (++j < h)
-			write_pixel(canvas, x+i, y + j, color);
+		k = 0;
+		while ((double)k <= i)
+		{
+			color = get_color_from_img(cubscene->so_canvas, x % 60, (int)floor(60 / REC_SIZE) + k);
+		//	printf("%d    %d\n", x, (int)floor(60 / REC_SIZE));
+			write_pixel(cubscene->canvas, x + 1, y + j , color);
+			k++;
+		}
 	}
-
 }
+
+
 
 void  projectewalls(t_cubscene* cubscene)
 { 
@@ -41,7 +50,7 @@ void  projectewalls(t_cubscene* cubscene)
 		distance =  cubscene->rays[i]->distance * cos(cubscene->rays[i]->angle - cubscene->player->rotationAngle);
     	distance_projection_plane = cubscene->half_width / 0.577350269189626;
    		wall_strip_height = (REC_SIZE / distance) * distance_projection_plane;
-   		rec(cubscene->canvas, i, cubscene->half_height - (wall_strip_height / 2), 1, wall_strip_height, 0x2D3047);
+   		rec(cubscene, i, cubscene->half_height - (wall_strip_height / 2), wall_strip_height);
   }
 }
 
@@ -159,3 +168,18 @@ void update_player(t_cubscene *cubscene)
 		cubscene->player->y = newplayery[0];
     }
 }
+
+// void rec(t_canvas *canvas, int x, int y, int w, int h, int color)
+// {
+// 	int		i;
+// 	int		j;
+
+// 	i = -1;
+// 	while (++i < w)
+// 	{
+// 		j = -1;
+// 		while (++j < h)
+// 			write_pixel(canvas, x+i, y + j, color);
+// 	}
+
+// }

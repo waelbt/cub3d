@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 01:45:06 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 15:39:54 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 19:36:29 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void		cast_all_rays(t_cubscene *cubscene);
 void		ft_free_rays(t_cubscene *cubscene);
 int			hasWallAt(t_cubscene *cubscene, double x, double y);
 void		projectewalls(t_cubscene* cubscene);
-void		rec(t_canvas *canvas, int x, int y, int w, int h, int color);
+void		rec(t_cubscene *cubscene, int x, int y, int h);
 void		texture_init(t_cubscene *cubscene);
 unsigned int get_color_from_img(t_canvas *canvas, int x, int y);
 #endif
