@@ -6,20 +6,21 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:26:19 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 11:37:14 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 15:37:46 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-t_canvas *new_canvas(void *mlx, int width, int height)
+t_canvas *new_canvas(void *img,int width, int height)
 {
     t_canvas *canvas;
 
     canvas = (t_canvas *)malloc(sizeof(t_canvas));
     canvas->width = width;
     canvas->height = height;
-    canvas->img = mlx_new_image(mlx, width, height);
+    //mlx_new_image(mlx, width, height)
+    canvas->img = img;
     canvas->addr = mlx_get_data_addr(canvas->img, &canvas->bits_per_pixel, &canvas->line_length, &canvas->endian);
     return (canvas);
 }
@@ -29,7 +30,7 @@ int convert_color(t_color *color)
 	return ( color->blue << 0 ) + ( color->green << 8 ) + ( color->red << 16 );
 }
 
-void write_pixel(t_canvas *canvas, int x, int y, int color)
+void write_pixel(t_canvas *canvas, int x, int y, unsigned int color)
 {
 	char	*dst;
 

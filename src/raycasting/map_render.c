@@ -6,11 +6,11 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 11:59:30 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 14:19:23 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3D.h"
+#include "../includes/cub3D.h"
 
 void rec(t_canvas *canvas, int x, int y, int w, int h, int color)
 {

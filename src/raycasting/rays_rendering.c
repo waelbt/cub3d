@@ -6,11 +6,11 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 04:00:18 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 11:48:34 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 14:19:27 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3D.h"
+#include "../includes/cub3D.h"
 
 t_rays *new_ray(double angle, t_cubscene *cubscene)
 {

@@ -1,8 +1,7 @@
-SO           textures/wood_strips.xpm 
-     
-NO           textures/wood.xpm
-EA           textures/rocks.xpm       
-WE           textures/wood_box.xpm  
+NO src/assets/textures/wallp_san.xpm
+SO /Users/waboutzo/Desktop/cub3d/src/assets/textures/wallp_san.xpm
+WE /Users/waboutzo/Desktop/cub3d/src/assets/textures/wallp_san.xpm
+EA /Users/waboutzo/Desktop/cub3d/src/assets/textures/wallp_san.xpm
 
 
 F 147,183,190

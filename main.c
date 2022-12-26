@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:43:24 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 14:07:35 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 15:47:29 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ int key_release(int keycode, t_cubscene * cubscene)
 int	main(int argc, char **argv)
 {
 	t_cubscene	*cubscene;
+	void		*canvas;
 	(void) argv;
 
 	if (argc != 2)
@@ -155,12 +156,13 @@ int	main(int argc, char **argv)
 	cubscene->half_height = cubscene->_height / 2;
 	cubscene->half_width = cubscene->_width / 2;
 	cubscene->win = mlx_new_window(cubscene->mlx, cubscene->_width, cubscene->_height, "cub3d");
-	cubscene->canvas = new_canvas(cubscene->mlx, cubscene->_width, cubscene->_height);
+	canvas = mlx_new_image(cubscene->mlx, cubscene->_width, cubscene->_height);
+	cubscene->canvas = new_canvas(canvas,cubscene->_width, cubscene->_height);
+	texture_init(cubscene);
 	mlx_hook(cubscene->win, 2, 0, key_handler, cubscene);
 	mlx_hook(cubscene->win, 3, 0, key_release, cubscene);
 	mlx_hook(cubscene->win, 17, 0, key_handler, cubscene);
 	mlx_loop_hook(cubscene->mlx, render, cubscene);
-	//printf("%d %d %d\n", cubscene->counter, cubscene->map_height * cubscene->map_width, cubscene->counter / cubscene->map_width - 2 * cubscene->map_height);
 	mlx_loop(cubscene->mlx);
 	return (EXIT_SUCCESS);
 }

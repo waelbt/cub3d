@@ -1,7 +1,7 @@
-NO textures/wood_strips.xpm
-SO textures/wood.xpm
-WE textures/wood_box.xpm
-EA textures/rocks.xpm
+NO src/assets/textures/wallp_san.xpm
+SO /Users/waboutzo/Desktop/cub3d/src/assets/textures/wallp_san.xpm
+WE /Users/waboutzo/Desktop/cub3d/src/assets/textures/wallp_san.xpm
+EA /Users/waboutzo/Desktop/cub3d/src/assets/textures/wallp_san.xpm
 
 C 103,  193, 202
 F 125, 130, 140
