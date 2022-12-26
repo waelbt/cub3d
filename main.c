@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:43:24 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 12:19:36 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 12:40:37 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void ft_clear(t_cubscene *cubscene)
 
 int render(t_cubscene *cubscene)
 {
-	if(cubscene->frame_rate)
+	if(cubscene->frame_rate > 0)
 	{
 		update_player(cubscene);
 		cast_all_rays(cubscene);
@@ -120,13 +120,13 @@ int key_release(int keycode, t_cubscene * cubscene)
 	if (keycode == DOWN || keycode == DOWN_ARROW ||
 		keycode == UP || keycode == UP_ARROW)
 	{
-		cubscene->frame_rate = 1000;
+		cubscene->frame_rate = 100;
 		cubscene->player->walkDirection = 0;
 	}
 	if (keycode == RIGHT || keycode == RIGHT_ARROW
 		|| keycode == LEFT || keycode == LEFT_ARROW)
 	{
-		cubscene->frame_rate = 1000;
+		cubscene->frame_rate = 100;
 		cubscene->player->turnDirection = 0;
 	}
 	return (0);
