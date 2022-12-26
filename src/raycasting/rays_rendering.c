@@ -153,12 +153,14 @@ void intersection(t_cubscene *cubscene, int index)
 		cubscene->rays[index]->distance = verditance;
 		cubscene->rays[index]->_x = ver_hit[X];
 		cubscene->rays[index]->_y = ver_hit[Y];
+		cubscene->rays[index]->ver_hit = true;
 	}
 	else
 	{
 		cubscene->rays[index]->distance = horzditance;
 		cubscene->rays[index]->_x = horz_hit[X];
 		cubscene->rays[index]->_y = horz_hit[Y];
+		cubscene->rays[index]->ver_hit = false;
 	}
 }
 

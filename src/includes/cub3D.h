@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 01:45:06 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 19:36:29 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 21:41:42 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ typedef struct ray
 	bool is_ray_facing_up;
 	bool is_ray_facing_right;
 	bool is_ray_facing_left;
+	bool	ver_hit;
+	bool	hor_hit;
 }t_rays;
 
 typedef struct texture
@@ -95,6 +97,8 @@ typedef struct texture
 	void		*west_image;
 	void		*east_image;
 	void		*south_image;
+	int			tx_width;
+	int			tx_height;
 }	t_texture;
 
 typedef struct cubscene

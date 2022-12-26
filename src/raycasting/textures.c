@@ -32,8 +32,8 @@ unsigned int get_color_from_img(t_canvas *canvas, int x, int y)
 {
 	char	*dst;
 
-    if (x < 0 || y < 0 || x >= canvas->width
-        || y >= canvas->height)
+    if (x < 0 || y < 0 || x > canvas->width
+        || y > canvas->height)
 		ft_error("get color overflowed, check your boucle codition idiot -_-");
 	dst = canvas->addr + (y * canvas->line_length + x * (canvas->bits_per_pixel / 8));
 	return (*(unsigned int*)dst);
