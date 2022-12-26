@@ -12,17 +12,33 @@
 
 #include "../includes/cub3D.h"
 
-void rec(t_canvas *canvas, int x, int y, int w, int h, int color)
+
+/// cubscene->rays[index]->_x .wallhitX
+void rec(t_cubscene* cubscene, int x, int y, int w, int h)
 {
 	int		i;
 	int		j;
-
+	int		y_offset;
+	int		x_offset;
+	int		color;
 	i = -1;
+		if (cubscene->rays[x]->ver_hit)
+			{
+				x_offset = (int)cubscene->rays[x]->_y % 60;
+			}
+			else
+				x_offset = (int)cubscene->rays[x]->_x % 60;
 	while (++i < w)
 	{
 		j = -1;
 		while (++j < h)
-			write_pixel(canvas, x+i, y + j, color);
+		{
+
+			y_offset = x - y * (float)(60 / h) ;
+			color = 0;
+			get_color_from_img(cubscene->so_canvas,x_offset ,y_offset);
+			write_pixel(cubscene->canvas, x+i, y + j, color);
+		}
 	}
 
 }
@@ -41,7 +57,7 @@ void  projectewalls(t_cubscene* cubscene)
 		distance =  cubscene->rays[i]->distance * cos(cubscene->rays[i]->angle - cubscene->player->rotationAngle);
     	distance_projection_plane = cubscene->half_width / 0.577350269189626;
    		wall_strip_height = (REC_SIZE / distance) * distance_projection_plane;
-   		rec(cubscene->canvas, i, cubscene->half_height - (wall_strip_height / 2), 1, wall_strip_height, 0x2D3047);
+   		rec(cubscene, i, cubscene->half_height - (wall_strip_height / 2), 1, wall_strip_height);
   }
 }
 

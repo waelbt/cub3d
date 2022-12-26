@@ -1,11 +1,12 @@
-NO textures/wood_strips.xpm
-SO textures/wood.xpm
+NO src/assets/textures/wallp_san.xpm
+SO src/assets/textures/wallp_san.xpm
+WE src/assets/textures/wallp_san.xpm
+EA src/assets/textures/wallp_san.xpm
 
 F 147,183,190
 C 4,138,129
 
-WE textures/wood_box.xpm
-EA textures/rocks.xpm
+
 
         11111111111 1111111111111
         1000000000110000000000001

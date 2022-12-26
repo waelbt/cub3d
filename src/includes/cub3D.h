@@ -79,6 +79,8 @@ typedef struct ray
 	bool is_ray_facing_up;
 	bool is_ray_facing_right;
 	bool is_ray_facing_left;
+	bool	ver_hit;
+	bool	hor_hit;
 }t_rays;
 
 typedef struct texture
@@ -95,6 +97,8 @@ typedef struct texture
 	void		*west_image;
 	void		*east_image;
 	void		*south_image;
+	int			tx_width;
+	int			tx_height;
 }	t_texture;
 
 typedef struct cubscene
@@ -147,7 +151,8 @@ void		cast_all_rays(t_cubscene *cubscene);
 void		ft_free_rays(t_cubscene *cubscene);
 int			hasWallAt(t_cubscene *cubscene, double x, double y);
 void		projectewalls(t_cubscene* cubscene);
-void		rec(t_canvas *canvas, int x, int y, int w, int h, int color);
+//void		rec(t_canvas *canvas, int x, int y, int w, int h);
+void		rec(t_cubscene* cubscene, int x, int y, int w, int h);
 void		texture_init(t_cubscene *cubscene);
 unsigned int get_color_from_img(t_canvas *canvas, int x, int y);
 #endif
