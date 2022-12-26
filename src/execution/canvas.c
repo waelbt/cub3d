@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:26:19 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/24 18:55:34 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 11:37:14 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,6 @@ void write_pixel(t_canvas *canvas, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-unsigned int get_pixel(t_canvas *canvas, int x, int y, int color)
-{
-	char	*dst;
-
-    if (x < 0 || y < 0 || x >= canvas->width
-        || y >= canvas->height)
-		return ;
-	dst = canvas->addr + (y * canvas->line_length + x * (canvas->bits_per_pixel / 8));
-	return *(unsigned int*)dst;
-}
-
 t_player *new_player(int x, int y, char character)
 {
     t_player *player;
@@ -63,14 +52,14 @@ t_player *new_player(int x, int y, char character)
     player->turnDirection = 0;
     player->walkDirection = 0;
     if (character == 'N')
-        player->rotationAngle = (3 * M_PI )/ 2;
+        player->rotationAngle = 3 * M_PI_2;
     else if (character == 'S')
-        player->rotationAngle = M_PI / 2;
+        player->rotationAngle = M_PI_2;
     else if (character == 'E')
         player->rotationAngle = 0;
     else if (character == 'W')
         player->rotationAngle = M_PI;
-    player->movespeed = 10.0;
-    player->rotationspeed = 2 * (M_PI / 180);
+    player->movespeed = 10;
+    player->rotationspeed = 0.034906585039887;
     return player;
 }

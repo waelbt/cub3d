@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:50:37 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/23 17:19:41 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 10:45:11 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_cubscene	*new_cubscene(void)
 	cubscene->player = NULL;
 	cubscene->map_width = 0;
 	cubscene->rays = NULL;
+	cubscene->counter = 0;
 	cubscene->map = malloc(sizeof(char *));
 	cubscene->map[0] = NULL;
 	cubscene->map_height = 0;

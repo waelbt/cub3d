@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 04:00:18 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/24 20:34:08 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 11:35:22 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ double *hor_intersection(t_cubscene *cubscene, int index)
 
 	hit = malloc(sizeof(double) * 3);
 	hit[HIT_STAT] = 0;
-	intercept[Y] = floor(cubscene->player->y / REC_SIZE) * REC_SIZE;
+	intercept[Y] = ((int)(cubscene->player->y / REC_SIZE)) * REC_SIZE;
 	if (cubscene->rays[index]->is_ray_facing_down)
 		intercept[Y] += REC_SIZE;
 	intercept[X] = cubscene->player->x + (intercept[Y] - cubscene->player->y) / tan(cubscene->rays[index]->angle);
@@ -88,7 +88,7 @@ double *ver_intersection(t_cubscene *cubscene, int index)
 
 	hit = malloc(sizeof(double) * 3);
 	hit[HIT_STAT] = 0;
-	intercept[X] = floor(cubscene->player->x / REC_SIZE) * REC_SIZE;
+	intercept[X] = ((int)(cubscene->player->x / REC_SIZE)) * REC_SIZE;
 	if (cubscene->rays[index]->is_ray_facing_right)
 		intercept[X] += REC_SIZE;
 	intercept[Y] = cubscene->player->y + (intercept[X] - cubscene->player->x) * tan(cubscene->rays[index]->angle);
@@ -165,8 +165,7 @@ void cast_all_rays(t_cubscene *cubscene)
 
 	column_id = 0;
 	cubscene->rays = (t_rays **) malloc(sizeof(t_rays) * cubscene->_width);
-	rayAngle = cubscene->player->rotationAngle - ((double) FIELD_OF_ANGLE / 2);
-	
+	rayAngle = cubscene->player->rotationAngle - FIELD_OF_ANGLE_2;
 	while (column_id < cubscene->_width)
 	{
 		cubscene->rays[column_id] = new_ray(rayAngle, cubscene);

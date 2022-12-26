@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/24 21:05:47 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 11:44:48 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,18 @@ void rec(t_canvas *canvas, int x, int y, int w, int h, int color)
 
 void  projectewalls(t_cubscene* cubscene)
 { 
-  int i;
-
-  i = 0;
-  while (i <cubscene->_width )
-  {
-    double  distance_projection_plane;
-    double wall_strip_height;
+	int i;
+	double  distance_projection_plane;
+	double wall_strip_height;
 	double distance;
 
-	distance =  cubscene->rays[i]->distance * cos(cubscene->rays[i]->angle - cubscene->player->rotationAngle);
-    distance_projection_plane = ((cubscene->_width / 2) / tan(FIELD_OF_ANGLE / 2));
-    wall_strip_height = (REC_SIZE / distance) * distance_projection_plane;
-	cubscene->rays[i]->x_rec = i;
-	cubscene->rays[i]->y_rec = (cubscene->_height / 2) - (wall_strip_height / 2);
-	cubscene->rays[i]->h_rec = wall_strip_height;
-    rec(cubscene->canvas, i, cubscene->rays[i]->y_rec, 1, wall_strip_height, 0x2D3047);
-	i++;
+	i = -1;
+	while (++i < cubscene->_width)
+	{
+		distance =  cubscene->rays[i]->distance * cos(cubscene->rays[i]->angle - cubscene->player->rotationAngle);
+    	distance_projection_plane = ((cubscene->_width / 2) / tan(FIELD_OF_ANGLE / 2));
+   		wall_strip_height = (REC_SIZE / distance) * distance_projection_plane;
+   		rec(cubscene->canvas, i, (cubscene->_height / 2) - (wall_strip_height / 2), 1, wall_strip_height, 0x2D3047);
   }
 }
 
@@ -127,8 +122,8 @@ int hasWallAt(t_cubscene *cubscene, double x, double y)
 	int i;
 	int j;
 
-	i = floor(x / REC_SIZE);
-	j = floor(y / REC_SIZE);
+	i = x / REC_SIZE;
+	j = y / REC_SIZE;
 	if (x < 0 || y < 0 || y >= cubscene->_height
 		|| x >= cubscene->_width || i >= (int) ft_strlen(cubscene->map[j]))
 		return (1);

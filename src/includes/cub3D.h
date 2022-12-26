@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 01:45:06 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/24 20:43:20 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 11:44:46 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@
 # define 	DOWN_ARROW			125
 # define    LEFT_ARROW			123
 # define 	RIGHT_ARROW			124
-# define	FIELD_OF_ANGLE		60 * (M_PI / 180)
+# define	FIELD_OF_ANGLE		M_PI / 3
+# define	FIELD_OF_ANGLE_2	FIELD_OF_ANGLE / 2
 # define 	CENTER				REC_SIZE / 2
 # define	X					0
 # define 	Y					1
@@ -72,9 +73,6 @@ typedef struct ray
 {
 	double angle;
 	double _x;
-	double x_rec;
-	double y_rec;
-	double h_rec;
 	double _y;
 	double distance;
 	bool is_ray_facing_down;
@@ -101,6 +99,7 @@ typedef struct cubscene
 	void		*win;
 	t_canvas	*canvas;
 	t_rays		**rays;
+	int 		counter;
 	//int 		rays_number;
 	t_player	*player;
 	t_texture	*texture;

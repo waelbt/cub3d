@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 21:44:46 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/23 17:20:00 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 10:54:34 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	check_undefined_elements(t_cubscene *cubscene, char *str, int *counter, int
 		flag = 0;
 		while (elements[++j])
 		{
+			if (str[i] == '0')
+				cubscene->counter++;
 			if (str[i] == elements[j])
 			{
 				flag = 1;

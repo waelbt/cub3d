@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:43:24 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/24 20:43:20 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 11:30:06 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,6 @@ void render_minimap(t_cubscene *cubscene)
 	render_player(cubscene, RED);
 }
 
-void update(t_cubscene *cubscene)
-{
-	update_player(cubscene);
-	cast_all_rays(cubscene);
-}
-
 void ft_clear(t_cubscene *cubscene)
 {
 	int i;
@@ -92,7 +86,8 @@ void ft_clear(t_cubscene *cubscene)
 
 int render(t_cubscene *cubscene)
 {
-	update(cubscene);
+	update_player(cubscene);
+	cast_all_rays(cubscene);
 	ft_clear(cubscene);
 	projectewalls(cubscene);
 	render_minimap(cubscene);
@@ -100,6 +95,7 @@ int render(t_cubscene *cubscene)
 	mlx_put_image_to_window(cubscene->mlx, cubscene->win, cubscene->canvas->img, 0, 0);
 	return 0;
 }
+
 int key_handler(int keycode, t_cubscene * cubscene)
 {
 	if (keycode == 53 || keycode < 0)
@@ -146,6 +142,7 @@ int	main(int argc, char **argv)
 	mlx_hook(cubscene->win, 3, 0, key_release, cubscene);
 	mlx_hook(cubscene->win, 17, 0, key_handler, cubscene);
 	mlx_loop_hook(cubscene->mlx, render, cubscene);
+	//printf("%d %d %d\n", cubscene->counter, cubscene->map_height * cubscene->map_width, cubscene->counter / cubscene->map_width - 2 * cubscene->map_height);
 	mlx_loop(cubscene->mlx);
 	return (EXIT_SUCCESS);
 }
