@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 11:44:48 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 11:59:30 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,31 @@ void rec(t_canvas *canvas, int x, int y, int w, int h, int color)
 	int		i;
 	int		j;
 
-	i = 0;
-	j = 0;
-	while (i < w)
+	i = -1;
+	while (++i < w)
 	{
-		while (j < h)
-		{
+		j = -1;
+		while (++j < h)
 			write_pixel(canvas, x+i, y + j, color);
-			j++;
-		}
-		i++;
 	}
 
 }
 
 void  projectewalls(t_cubscene* cubscene)
 { 
-	int i;
 	double  distance_projection_plane;
 	double wall_strip_height;
 	double distance;
+	//static double tan = 0.577350269189626; // tan(FIELD_OF_ANGLE_2)
+	int i;
 
 	i = -1;
 	while (++i < cubscene->_width)
 	{
 		distance =  cubscene->rays[i]->distance * cos(cubscene->rays[i]->angle - cubscene->player->rotationAngle);
-    	distance_projection_plane = ((cubscene->_width / 2) / tan(FIELD_OF_ANGLE / 2));
+    	distance_projection_plane = cubscene->half_width / 0.577350269189626;
    		wall_strip_height = (REC_SIZE / distance) * distance_projection_plane;
-   		rec(cubscene->canvas, i, (cubscene->_height / 2) - (wall_strip_height / 2), 1, wall_strip_height, 0x2D3047);
+   		rec(cubscene->canvas, i, cubscene->half_height - (wall_strip_height / 2), 1, wall_strip_height, 0x2D3047);
   }
 }
 

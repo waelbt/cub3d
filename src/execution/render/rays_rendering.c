@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 04:00:18 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 11:35:22 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 11:48:34 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,19 @@ double *hor_intersection(t_cubscene *cubscene, int index)
 	double step[2];
 	double nextHorzTouch[2];
 	double *hit;
+	double tan_ray_angle;
 
 	hit = malloc(sizeof(double) * 3);
+	tan_ray_angle = 1 / tan(cubscene->rays[index]->angle);
 	hit[HIT_STAT] = 0;
 	intercept[Y] = ((int)(cubscene->player->y / REC_SIZE)) * REC_SIZE;
 	if (cubscene->rays[index]->is_ray_facing_down)
 		intercept[Y] += REC_SIZE;
-	intercept[X] = cubscene->player->x + (intercept[Y] - cubscene->player->y) / tan(cubscene->rays[index]->angle);
+	intercept[X] = cubscene->player->x + (intercept[Y] - cubscene->player->y) * tan_ray_angle;
 	step[Y] = REC_SIZE;
 	if (cubscene->rays[index]->is_ray_facing_up)
 		step[Y] *= -1;
-	step[X] = REC_SIZE / tan(cubscene->rays[index]->angle);
+	step[X] = REC_SIZE * tan_ray_angle;
 	if (cubscene->rays[index]->is_ray_facing_left && step[X] > 0)
 		step[X] *= -1;
 	if (cubscene->rays[index]->is_ray_facing_right && step[X] < 0)
@@ -85,17 +87,19 @@ double *ver_intersection(t_cubscene *cubscene, int index)
 	double nextverTouch[2];
 	double *hit;
 	double x;
+	double tan_ray_angle;
 
 	hit = malloc(sizeof(double) * 3);
+	tan_ray_angle = tan(cubscene->rays[index]->angle);
 	hit[HIT_STAT] = 0;
 	intercept[X] = ((int)(cubscene->player->x / REC_SIZE)) * REC_SIZE;
 	if (cubscene->rays[index]->is_ray_facing_right)
 		intercept[X] += REC_SIZE;
-	intercept[Y] = cubscene->player->y + (intercept[X] - cubscene->player->x) * tan(cubscene->rays[index]->angle);
+	intercept[Y] = cubscene->player->y + (intercept[X] - cubscene->player->x) * tan_ray_angle;
 	step[X] = REC_SIZE;
 	if (cubscene->rays[index]->is_ray_facing_left)
 		step[X] *= -1;
-	step[Y] = REC_SIZE * tan(cubscene->rays[index]->angle);
+	step[Y] = REC_SIZE * tan_ray_angle;
 	if (cubscene->rays[index]->is_ray_facing_up && step[Y] > 0)
 		step[Y] *= -1;
 	if (cubscene->rays[index]->is_ray_facing_down && step[Y] < 0)

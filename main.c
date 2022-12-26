@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:43:24 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 11:30:06 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 12:19:36 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,17 @@ void ft_clear(t_cubscene *cubscene)
 
 int render(t_cubscene *cubscene)
 {
-	update_player(cubscene);
-	cast_all_rays(cubscene);
-	ft_clear(cubscene);
-	projectewalls(cubscene);
-	render_minimap(cubscene);
-	ft_free_rays(cubscene);
-	mlx_put_image_to_window(cubscene->mlx, cubscene->win, cubscene->canvas->img, 0, 0);
+	if(cubscene->frame_rate)
+	{
+		update_player(cubscene);
+		cast_all_rays(cubscene);
+		ft_clear(cubscene);
+		projectewalls(cubscene);
+		//render_minimap(cubscene);
+		ft_free_rays(cubscene);
+		mlx_put_image_to_window(cubscene->mlx, cubscene->win, cubscene->canvas->img, 0, 0);
+	}
+	cubscene->frame_rate--;
 	return 0;
 }
 
@@ -115,10 +119,16 @@ int key_release(int keycode, t_cubscene * cubscene)
 {
 	if (keycode == DOWN || keycode == DOWN_ARROW ||
 		keycode == UP || keycode == UP_ARROW)
+	{
+		cubscene->frame_rate = 1000;
 		cubscene->player->walkDirection = 0;
+	}
 	if (keycode == RIGHT || keycode == RIGHT_ARROW
 		|| keycode == LEFT || keycode == LEFT_ARROW)
+	{
+		cubscene->frame_rate = 1000;
 		cubscene->player->turnDirection = 0;
+	}
 	return (0);
 }
 
@@ -136,6 +146,8 @@ int	main(int argc, char **argv)
 		ft_error("mlx_init() fails to set up the connection to the  graphical  system");
 	cubscene->_height = cubscene->map_height * REC_SIZE;
 	cubscene->_width = cubscene->map_width * REC_SIZE;
+	cubscene->half_height = cubscene->_height / 2;
+	cubscene->half_width = cubscene->_width / 2;
 	cubscene->win = mlx_new_window(cubscene->mlx, cubscene->_width, cubscene->_height, "cub3d");
 	cubscene->canvas = new_canvas(cubscene->mlx, cubscene->_width, cubscene->_height);
 	mlx_hook(cubscene->win, 2, 0, key_handler, cubscene);

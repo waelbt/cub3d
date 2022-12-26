@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 01:45:06 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 11:44:46 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/26 12:21:32 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include	"canvas.h"
 
 # define    STDERR  			2
-# define	REC_SIZE 			60
+# define	REC_SIZE 			20
 # define 	RED 				16711680
 # define 	YELLOW 				50000000
 # define	UP					13
@@ -107,8 +107,11 @@ typedef struct cubscene
 	int			floor; 
 	char		**map;
 	int			map_height;
+	int 		frame_rate;
 	int			_height;
 	int			_width;
+	int			half_height;
+	int			half_width;
 	int			map_width; //temp
 }	t_cubscene;
 
