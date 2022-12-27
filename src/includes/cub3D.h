@@ -80,7 +80,6 @@ typedef struct ray
 	bool is_ray_facing_right;
 	bool is_ray_facing_left;
 	bool	ver_hit;
-	bool	hor_hit;
 }t_rays;
 
 typedef struct texture
