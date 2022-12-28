@@ -11,24 +11,24 @@
 /* ************************************************************************** */
 
 #ifndef CANVAS_H
-#define CANVAS_H
+# define CANVAS_H
 
-typedef struct color t_color;
-#include "cub3D.h"
+# include "cub3D.h"
+
+typedef struct color	t_color;
 
 typedef struct s_canvas
 {
-    void    *img;
-    char    *addr;
-    int     width;
-    int     height;
-    int		bits_per_pixel;
-	int 	line_length;
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bits_per_pixel;
+	int		line_length;
 	int		endian;
-} t_canvas;
+}	t_canvas;
 
-
-t_canvas    *new_canvas(void *img,int width, int height);
-int         convert_color(t_color *color);
-void        write_pixel(t_canvas *canvas, int x, int y, unsigned int color);
+t_canvas	*new_canvas(void *img, int width, int height);
+int			convert_color(t_color *color);
+void		write_pixel(t_canvas *canvas, int x, int y, unsigned int color);
 #endif

@@ -13,42 +13,42 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include   <unistd.h>
-# include   <stdlib.h>
-# include   <stdarg.h>
+# include	<unistd.h>
+# include	<stdlib.h>
+# include	<stdarg.h>
 # include	<stdbool.h>
-# include   <string.h>
-# include   <sys/errno.h>
-# include   <stdio.h>
-# include   <mlx.h>
-# include   <fcntl.h>
+# include	<string.h>
+# include	<sys/errno.h>
+# include	<stdio.h>
+# include	<mlx.h>
+# include	<fcntl.h>
 # include	<math.h>
-#include	<limits.h>
+# include	<limits.h>
 # include	<float.h>
-# include   "libft.h"
-# include   "get_next_line.h"
-# include   "lexer.h"
+# include	"libft.h"
+# include	"get_next_line.h"
+# include	"lexer.h"
 # include	"canvas.h"
 
-# define    STDERR  			2
-# define	REC_SIZE 			60
-# define 	RED 				16711680
-# define 	YELLOW 				50000000
-# define	UP					13
-# define 	DOWN				1
-# define    LEFT				0
-# define 	RIGHT				2
-# define	UP_ARROW			126
-# define 	DOWN_ARROW			125
-# define    LEFT_ARROW			123
-# define 	RIGHT_ARROW			124
-# define	FIELD_OF_ANGLE		M_PI / 3
-# define	FIELD_OF_ANGLE_2	FIELD_OF_ANGLE / 2
-# define 	CENTER				REC_SIZE / 2
-# define	X					0
-# define 	Y					1
-# define 	HIT_STAT			2
-# define	SCALE				0.2
+# define STDERR  			2
+# define REC_SIZE 			60
+# define RED 				16711680
+# define YELLOW 				50000000
+# define UP					13
+# define DOWN				1
+# define LEFT				0
+# define RIGHT				2
+# define UP_ARROW			126
+# define DOWN_ARROW			125
+# define LEFT_ARROW			123
+# define RIGHT_ARROW			124
+# define FIELD_OF_ANGLE		M_PI / 3
+# define FIELD_OF_ANGLE_2	FIELD_OF_ANGLE / 2
+# define CENTER				REC_SIZE / 2
+# define X					0
+# define Y					1
+# define HIT_STAT			2
+# define SCALE				0.2
 
 typedef struct color
 {
@@ -154,4 +154,7 @@ void		projectewalls(t_cubscene* cubscene);
 void		rec(t_cubscene *cubscene, int x, int y, int h);
 void		texture_init(t_cubscene *cubscene);
 unsigned int get_color_from_img(t_canvas *canvas, int x, int y);
+int			key_release(int keycode, t_cubscene *cubscene);
+int			key_handler(int keycode, t_cubscene *cubscene);
+int		close_x(void);
 #endif
