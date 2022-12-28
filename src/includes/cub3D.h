@@ -91,7 +91,7 @@ typedef struct texture
 		WE,
 		EA
 	} e_type;
-	char	**path;
+	char		**path;
 	void		*north_image;
 	void		*west_image;
 	void		*east_image;

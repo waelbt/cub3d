@@ -1,7 +1,7 @@
-NO src/assets/textures/red_wall.xpm
-SO src/assets/textures/red_wall.xpm
-WE src/assets/textures/red_wall.xpm
-EA src/assets/textures/red_wall.xpm
+NO src/assets/textures/red_brick.xpm
+SO src/assets/textures/grand_theft_auto_san_.xpm
+WE src/assets/textures/brick_purple.xpm
+EA src/assets/textures/glowing_wall.xpm
 
 F 38,70,83
 C 244,162,97
@@ -11,7 +11,7 @@ C 244,162,97
 100101000000101
 111110000010101
 100000000010101
-1000000S0000101
+1000000N0000101
 100000000000001
 100000000000001
 111111000111101

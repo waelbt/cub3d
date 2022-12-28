@@ -14,21 +14,27 @@
 
 void texture_init(t_cubscene *cubscene)
 {
-	int		width;
-	int		height;
+	int		width[4];
+	int		height[4];
+	int		i;
 
-	/*protect invalid file*/
-	// store w and h in struct;
-	cubscene->texture->north_image = mlx_xpm_file_to_image(cubscene->mlx, cubscene->texture->path[NO], &width, &height);
-	cubscene->no_canvas = new_canvas(cubscene->texture->north_image, width, height);
-	cubscene->texture->south_image = mlx_xpm_file_to_image(cubscene->mlx, cubscene->texture->path[SO], &width, &height);
-	cubscene->so_canvas = new_canvas(cubscene->texture->south_image, width, height);
-	cubscene->texture->east_image = mlx_xpm_file_to_image(cubscene->mlx, cubscene->texture->path[EA], &width, &height);
-	cubscene->ea_canvas = new_canvas(cubscene->texture->east_image, width, height);
-	cubscene->texture->west_image = mlx_xpm_file_to_image(cubscene->mlx, cubscene->texture->path[WE], &width, &height);
-	cubscene->we_canvas = new_canvas(cubscene->texture->west_image, width, height);
+	i = -1;
+	cubscene->texture->north_image = mlx_xpm_file_to_image(cubscene->mlx, cubscene->texture->path[NO], &width[NO], &height[NO]);
+	cubscene->texture->south_image = mlx_xpm_file_to_image(cubscene->mlx, cubscene->texture->path[SO], &width[SO], &height[SO]);
+	cubscene->texture->east_image = mlx_xpm_file_to_image(cubscene->mlx, cubscene->texture->path[EA], &width[EA], &height[EA]);
+	cubscene->texture->west_image = mlx_xpm_file_to_image(cubscene->mlx, cubscene->texture->path[WE], &width[WE], &height[WE]);
+ 	if(!cubscene->texture->north_image ||!cubscene->texture->east_image || !cubscene->texture->west_image || !cubscene->texture->south_image)
+ 		ft_error("invalid file or wrong path mate!");
+	while (++i <= EA)
+	{
+		if (width[i] != REC_SIZE|| height[i] != REC_SIZE)
+			ft_error("bad texture dimentions!");
+	}
+	cubscene->no_canvas = new_canvas(cubscene->texture->north_image, width[NO], height[NO]);
+	cubscene->so_canvas = new_canvas(cubscene->texture->south_image, width[SO], height[SO]);
+	cubscene->ea_canvas = new_canvas(cubscene->texture->east_image, width[EA], height[EA]);
+	cubscene->we_canvas = new_canvas(cubscene->texture->west_image, width[WE], height[WE]);
 }
-
 unsigned int get_color_from_img(t_canvas *canvas, int x, int y)
 {
 	char	*dst;

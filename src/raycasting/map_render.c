@@ -6,46 +6,50 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/28 02:43:36 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/28 12:40:53 by lchokri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
+t_canvas *get_dir(t_cubscene *cubscene, int x)
+ {
+    if (cubscene->rays[x]->ver_hit && cubscene->rays[x]->is_ray_facing_left)
+ return (cubscene->we_canvas);
+    else if (cubscene->rays[x]->ver_hit && cubscene->rays[x]->is_ray_facing_right)
+ return (cubscene->ea_canvas);
+   else if (!cubscene->rays[x]->ver_hit && cubscene->rays[x]->is_ray_facing_up)
+ return (cubscene->no_canvas);
+ return (cubscene->so_canvas);
+ }
+ 
 void rec(t_cubscene *cubscene, int x, int y, int h)
 {
-  int	j = 0;
-  int k = 0;
+  int	j[2] ;
+  double k = ((float)cubscene->so_canvas->height / h);
   int	color;
   double i;
-  double	x2;
-  //get X
-  //to get x we should first know what coords are changing in our 2d map x or y, we have :
+  int	x2;
 
+  j[0] = 0;
   if (cubscene->rays[x]->ver_hit)
-  {
-    //in this case the wall was hit vertically by a ray, which means the y's are the ones changing.so in order to get 1st coord of the texture we will work with the canva's/maps y;
-    x2 = (int)cubscene->rays[x]->_y %  cubscene->so_canvas->height;
-  }
+    x2 = (int)cubscene->rays[x]->_y % cubscene->so_canvas->width;
   else 
     x2 = (int)cubscene->rays[x]->_x % cubscene->so_canvas->width;
-
-
-  i = REC_SIZE / 60; //che7L mn mara ghanktbo each pixel;
-  while (j < h)
+    
+    i = REC_SIZE / cubscene->so_canvas->height;
+  while (j[0] < h)
   {
-    k = 0;
-    color = get_color_from_img(cubscene->so_canvas, x2, j * ((float)cubscene->no_canvas->height / h));
-    while ((double)k < i)
+    color = get_color_from_img(get_dir(cubscene, x),x2, j[0] * k);
+    j[1] = 0;
+    while (j[1] < i)
     {
-      write_pixel(cubscene->canvas, x, (y + j) , color);
-      k++;
+      write_pixel(cubscene->canvas, x, (y + j[0]) , color);
+        j[1]++;
     }
-    j++;
+    j[0]++;
   }
 }
-///(int)floor(60 / REC_SIZE) + i
-
 
 void  projectewalls(t_cubscene* cubscene)
 { 
@@ -179,18 +183,3 @@ void update_player(t_cubscene *cubscene)
     cubscene->player->y = newplayery[0];
   }
 }
-
-// void rec(t_canvas *canvas, int x, int y, int w, int h, int color)
-// {
-// 	int		i;
-// 	int		j;
-
-// 	i = -1;
-// 	while (++i < w)
-// 	{
-// 		j = -1;
-// 		while (++j < h)
-// 			write_pixel(canvas, x+i, y + j, color);
-// 	}
-
-// }
