@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/27 14:05:19 by lchokri          ###   ########.fr       */
+/*   Updated: 2022/12/28 02:43:36 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void rec(t_cubscene *cubscene, int x, int y, int h)
   while (j < h)
   {
     k = 0;
-    color = get_color_from_img(cubscene->so_canvas, x2, (y+j)%60);
+    color = get_color_from_img(cubscene->so_canvas, x2, j * ((float)cubscene->no_canvas->height / h));
     while ((double)k < i)
     {
-      write_pixel(cubscene->canvas, x, y + j , color);
+      write_pixel(cubscene->canvas, x, (y + j) , color);
       k++;
     }
     j++;
