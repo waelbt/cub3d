@@ -23,6 +23,7 @@
 # include   <mlx.h>
 # include   <fcntl.h>
 # include	<math.h>
+#include	<limits.h>
 # include	<float.h>
 # include   "libft.h"
 # include   "get_next_line.h"
@@ -145,7 +146,7 @@ void		render_player(t_cubscene *cubscene, int color);
 void		update_player(t_cubscene *cubscene);
 void		line(t_cubscene *cubscene, int x, int y, int color, double scale);
 void		ray_render(t_cubscene *cubscene, int index);
-t_rays *new_ray(double angle, t_cubscene *cubscene);
+t_rays		*new_ray(double angle, t_cubscene *cubscene);
 void		cast_all_rays(t_cubscene *cubscene);
 void		ft_free_rays(t_cubscene *cubscene);
 int			hasWallAt(t_cubscene *cubscene, double x, double y);

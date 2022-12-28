@@ -61,6 +61,7 @@ t_player *new_player(int x, int y, char character)
     else if (character == 'W')
         player->rotationAngle = M_PI;
     player->movespeed = 10;
-    player->rotationspeed = 0.034906585039887;
+    player->rotationspeed =0.05;
+ //   player->rotationspeed = 0.034906585039887;
     return player;
 }

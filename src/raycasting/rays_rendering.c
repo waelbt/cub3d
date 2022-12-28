@@ -128,8 +128,6 @@ double *ver_intersection(t_cubscene *cubscene, int index)
 	return hit;
 }
 
-#include <limits.h>
-
 double distance(t_cubscene *cubscene, int index,double x2, double y2)
 {
 	return (x2 - cubscene->player->x) * cos(cubscene->rays[index]->angle) + (y2 -  cubscene->player->y) * sin(cubscene->rays[index]->angle); 

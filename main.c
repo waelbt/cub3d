@@ -54,15 +54,20 @@ void render_env(t_cubscene *cubscene)
 void render_minimap(t_cubscene *cubscene)
 {
 	int i;
+	int	x;
+	int	y;
 
 	i  = -1;
+	x = cubscene->player->x + cos(cubscene->player->rotationAngle) * 60;
+	y = cubscene->player->y + sin(cubscene->player->rotationAngle) * 60;
 	render_env(cubscene);
-	while (++i < cubscene->_width)
-		line(cubscene, cubscene->rays[i]->_x, cubscene->rays[i]->_y, YELLOW, SCALE);
-	render_border(cubscene);
+//	while (++i < cubscene->_width)
+//		line(cubscene, cubscene->rays[i]->_x, cubscene->rays[i]->_y, YELLOW, SCALE);
+//	render_border(cubscene);
+	 line(cubscene,  x, y,  RED, SCALE);
 	render_player(cubscene, RED);
-}
 
+}
 void ft_clear(t_cubscene *cubscene)
 {
 	int i;
@@ -102,7 +107,7 @@ int render(t_cubscene *cubscene)
 
 int key_handler(int keycode, t_cubscene * cubscene)
 {
-	if (keycode == 53 || keycode < 0)
+	if (keycode == 53 || keycode < 0 )
 		exit(0);
 	else if (keycode == DOWN || keycode == DOWN_ARROW)
 	{
@@ -137,6 +142,11 @@ int key_release(int keycode, t_cubscene * cubscene)
 		cubscene->player->turnDirection = 0;
 	return (0);
 }
+int	close_X(void)
+{
+	exit(0);
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
@@ -161,7 +171,7 @@ int	main(int argc, char **argv)
 	texture_init(cubscene);
 	mlx_hook(cubscene->win, 2, 0, key_handler, cubscene);
 	mlx_hook(cubscene->win, 3, 0, key_release, cubscene);
-	mlx_hook(cubscene->win, 17, 0, key_handler, cubscene);
+	mlx_hook(cubscene->win, 17, 0, close_X, cubscene);
 	mlx_loop_hook(cubscene->mlx, render, cubscene);
 	mlx_loop(cubscene->mlx);
 	return (EXIT_SUCCESS);

@@ -1,0 +1,16 @@
+NO src/assets/textures/WallB.xpm
+SO src/assets/textures/WallG.xpm
+WE src/assets/textures/WallGr.xpm
+EA src/assets/textures/WallY.xpm
+
+F 38,70,83
+C 244,162,97
+
+111111111111111
+100000000000101
+100101000000101
+100000000010101
+1000000N0010101
+111111000111101
+100000000000001
+111111111111111
