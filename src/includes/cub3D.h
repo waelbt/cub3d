@@ -93,10 +93,10 @@ typedef struct texture
 		EA
 	} e_type;
 	char		**path;
-	void		*north_image;
-	void		*west_image;
-	void		*east_image;
-	void		*south_image;
+	void		*north;
+	void		*west;
+	void		*east;
+	void		*south;
 	int			tx_width;
 	int			tx_height;
 }	t_texture;
@@ -113,10 +113,6 @@ typedef struct cubscene
 	int			floor;
 	int			counter;
 	char		**map;
-	// t_canvas	*no_canvas;
-	// t_canvas	*we_canvas;
-	// t_canvas	*ea_canvas;
-	// t_canvas	*so_canvas;
 	t_canvas	**tx_canvas;
 	int			map_height;
 	int			frame_rate;
