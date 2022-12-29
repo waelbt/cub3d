@@ -115,10 +115,11 @@ typedef struct cubscene
 	int			ceilling;
 	int			floor; 
 	char		**map;
-	t_canvas	*no_canvas;
-	t_canvas	*we_canvas;
-	t_canvas	*ea_canvas;
-	t_canvas	*so_canvas;
+	//t_canvas	*no_canvas;
+	//t_canvas	*we_canvas;
+	//t_canvas	*ea_canvas;
+	//t_canvas	*so_canvas;
+	t_canvas	**tx_canvas;
 	int			map_height;
 	int 		frame_rate;
 	int			_height;

@@ -12,6 +12,30 @@
 
 #include "../includes/cub3D.h"
 
+void	init_colors(t_canvas **canvas)
+{
+	int	x;
+	int	y;
+	int	j;
+
+	x = -1;
+	y = 0;
+	j = 0;
+	canvas[j]->color = (unsigned int **)malloc(sizeof(unsigned int*) * canvas[j]->height);
+	while (y < canvas[j]->height)
+	{
+		canvas[j]->color[y] = (unsigned int *)malloc(sizeof(unsigned int) * canvas[j]->width);
+		x = -1;
+		while (++x < canvas[j]->width)
+		{
+			canvas[j]->color[y][x] = get_color_from_img(canvas[j], x, y);
+		}
+		y++;
+	}
+	j++;
+
+}
+
 void texture_init(t_cubscene *cubscene)
 {
 	int		width[4];
@@ -19,6 +43,7 @@ void texture_init(t_cubscene *cubscene)
 	int		i;
 
 	i = -1;
+	cubscene->tx_canvas = (t_canvas **)malloc(4 * sizeof(t_canvas *));
 	cubscene->texture->north_image = mlx_xpm_file_to_image(cubscene->mlx, cubscene->texture->path[NO], &width[NO], &height[NO]);
 	cubscene->texture->south_image = mlx_xpm_file_to_image(cubscene->mlx, cubscene->texture->path[SO], &width[SO], &height[SO]);
 	cubscene->texture->east_image = mlx_xpm_file_to_image(cubscene->mlx, cubscene->texture->path[EA], &width[EA], &height[EA]);
@@ -30,10 +55,11 @@ void texture_init(t_cubscene *cubscene)
 		if (width[i] != REC_SIZE|| height[i] != REC_SIZE)
 			ft_error("bad texture dimentions!");
 	}
-	cubscene->no_canvas = new_canvas(cubscene->texture->north_image, width[NO], height[NO]);
-	cubscene->so_canvas = new_canvas(cubscene->texture->south_image, width[SO], height[SO]);
-	cubscene->ea_canvas = new_canvas(cubscene->texture->east_image, width[EA], height[EA]);
-	cubscene->we_canvas = new_canvas(cubscene->texture->west_image, width[WE], height[WE]);
+	cubscene->tx_canvas[NO] = new_canvas(cubscene->texture->north_image, width[NO], height[NO]);
+	cubscene->tx_canvas[SO] = new_canvas(cubscene->texture->south_image, width[SO], height[SO]);
+	cubscene->tx_canvas[EA] = new_canvas(cubscene->texture->east_image, width[EA], height[EA]);
+	cubscene->tx_canvas[WE] = new_canvas(cubscene->texture->west_image, width[WE], height[WE]);
+	init_colors(cubscene->tx_canvas);
 }
 unsigned int get_color_from_img(t_canvas *canvas, int x, int y)
 {

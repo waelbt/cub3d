@@ -19,13 +19,14 @@ typedef struct color	t_color;
 
 typedef struct s_canvas
 {
-	void	*img;
-	char	*addr;
-	int		width;
-	int		height;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	void			*img;
+	char			*addr;
+	int				width;
+	int				height;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	unsigned int	**color;
 }	t_canvas;
 
 t_canvas	*new_canvas(void *img, int width, int height);
