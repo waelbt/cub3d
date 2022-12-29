@@ -84,6 +84,16 @@ int	render(t_cubscene *cubscene)
 	return (0);
 }
 
+int	mouse_handler(int x, int y, t_cubscene *cubscene)
+{
+	int x1 = x;
+	if (x > 0 && y > 0)
+	{
+		
+	}
+	return (1);
+}
+
 int	main(int argc, char **argv)
 {
 	t_cubscene	*cubscene;
@@ -107,6 +117,7 @@ int	main(int argc, char **argv)
 	cubscene->canvas = new_canvas(canvas, cubscene->_width, cubscene->_height);
 	texture_init(cubscene);
 	mlx_hook(cubscene->win, 2, 0, key_handler, cubscene);
+	mlx_hook(cubscene->win, 6, 0, mouse_handler, cubscene);
 	mlx_hook(cubscene->win, 3, 0, key_release, cubscene);
 	mlx_hook(cubscene->win, 17, 0, close_x, cubscene);
 	mlx_loop_hook(cubscene->mlx, render, cubscene);

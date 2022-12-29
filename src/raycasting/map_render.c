@@ -165,8 +165,16 @@ void update_player(t_cubscene *cubscene)
   newplayery[0] = movesptep;
   if (cubscene->player->walkDirection != 0)
   {
-    newplayerx[0] *= cos(cubscene->player->rotationAngle);
-    newplayery[0] *= sin(cubscene->player->rotationAngle);
+    if (cubscene->player->flag)
+    {
+      newplayerx[0] *= cos(cubscene->player->rotationAngle - M_PI / 2);
+      newplayery[0] *= sin(cubscene->player->rotationAngle - M_PI / 2);
+    }
+    else
+    {
+      newplayerx[0] *= cos(cubscene->player->rotationAngle);
+      newplayery[0] *= sin(cubscene->player->rotationAngle);
+    }
   }
   newplayerx[0] += cubscene->player->x;
   newplayery[0] += cubscene->player->y;

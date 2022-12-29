@@ -52,6 +52,7 @@ t_player *new_player(int x, int y, char character)
     player->character = character;
     player->turnDirection = 0;
     player->walkDirection = 0;
+    player->flag = 0;
     if (character == 'N')
         player->rotationAngle = 3 * M_PI_2;
     else if (character == 'S')

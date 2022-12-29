@@ -63,6 +63,7 @@ typedef struct player
 	int y;
 	int radius;
 	int character;
+	int flag;
 	int turnDirection;
 	int walkDirection;
 	double rotationAngle;
