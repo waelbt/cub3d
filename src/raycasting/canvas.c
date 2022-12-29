@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:26:19 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/29 16:03:37 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/29 18:54:49 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_canvas *new_canvas(void *img,int width, int height)
     canvas = (t_canvas *)malloc(sizeof(t_canvas));
     canvas->width = width;
     canvas->height = height;
-    //mlx_new_image(mlx, width, height)
     canvas->img = img;
     canvas->addr = mlx_get_data_addr(canvas->img, &canvas->bits_per_pixel, &canvas->line_length, &canvas->endian);
     return (canvas);
@@ -54,17 +53,17 @@ t_player *new_player(int x, int y, char character)
     player->y = y * REC_SIZE + CENTER;
     player->radius = 6;
     player->character = character;
-    player->turnDirection = 0;
+    player->turn_direction = 0;
     player->flag = 0;
-    player->walkDirection = 0;
+    player->walk_direction = 0;
     if (character == 'N')
-        player->rotationAngle = 3 * M_PI_2;
+        player->rotation_angle = 3 * M_PI_2;
     else if (character == 'S')
-        player->rotationAngle = M_PI_2;
+        player->rotation_angle = M_PI_2;
     else if (character == 'E')
-        player->rotationAngle = 0;
+        player->rotation_angle = 0;
     else if (character == 'W')
-        player->rotationAngle = M_PI;
+        player->rotation_angle = M_PI;
     player->movespeed = 10;
     player->rotationspeed =0.05;
  //   player->rotationspeed = 0.034906585039887;

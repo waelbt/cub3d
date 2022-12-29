@@ -16,7 +16,7 @@ GENERAL_TOOLS	= $(addsuffix .c, $(addprefix src/general_tools/GNL/, $(GNL)))
 
 LEXER			=	identifier_lexer lexer
 
-TOOLS			=	filter_cases parse_function tools
+TOOLS			=	filter_cases parse_function tools parsing_one
 
 PARSING			=  	src/parsing/cubscene_parsing.c \
 					$(addsuffix .c, $(addprefix src/parsing/lexer/, $(LEXER))) \

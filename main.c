@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:43:24 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/29 16:01:16 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/29 18:00:14 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	render_minimap(t_cubscene *cubscene)
 	int		y;
 
 	i = -1;
-	x = cubscene->player->x + cos(cubscene->player->rotationAngle) * 60;
-	y = cubscene->player->y + sin(cubscene->player->rotationAngle) * 60;
+	x = cubscene->player->x + cos(cubscene->player->rotation_angle) * 60;
+	y = cubscene->player->y + sin(cubscene->player->rotation_angle) * 60;
 	render_env(cubscene);
-	line(cubscene, x, y, RED, SCALE);
+	line(cubscene, x, y, SCALE);
 	render_player(cubscene, RED);
 }
 

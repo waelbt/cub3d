@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 04:00:18 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 19:27:30 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/29 17:52:37 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ void cast_all_rays(t_cubscene *cubscene)
 
 	column_id = 0;
 	cubscene->rays = (t_rays **) malloc(sizeof(t_rays) * cubscene->_width);
-	rayAngle = cubscene->player->rotationAngle - FIELD_OF_ANGLE_2;
+	rayAngle = cubscene->player->rotation_angle - FIELD_OF_ANGLE_2;
 	while (column_id < cubscene->_width)
 	{
 		cubscene->rays[column_id] = new_ray(rayAngle, cubscene);
