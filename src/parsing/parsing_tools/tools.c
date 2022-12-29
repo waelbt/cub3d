@@ -6,15 +6,15 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:38:35 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/20 20:44:10 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/29 18:54:15 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-void		ft_free(char **str)
+void	ft_free(char **str)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (str[++i])
@@ -22,7 +22,7 @@ void		ft_free(char **str)
 	free(str);
 }
 
-void		ft_error(char *raison)
+void	ft_error(char *raison)
 {
 	ft_putstr_fd("Error: ", 2);
 	ft_putstr_fd(raison, 2);
@@ -30,10 +30,10 @@ void		ft_error(char *raison)
 	exit(127);
 }
 
-int			extension_check(char *file)
+int	extension_check(char *file)
 {
-	int fd;
-	char *extension;
+	int		fd;
+	char	*extension;
 
 	extension = ft_strrchr(file, '.');
 	if (!extension)
@@ -43,13 +43,12 @@ int			extension_check(char *file)
 	fd = open(file, 0);
 	if (fd < 0)
 		ft_error(strerror(EBADF));
-	return fd;
+	return (fd);
 }
 
-
-int str_isdigit(char *str)
+int	str_isdigit(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] == '+' || str[i] == '-')
@@ -58,7 +57,7 @@ int str_isdigit(char *str)
 		return (0);
 	while (str[i])
 	{
-		if(!ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]))
 			return (0);
 		i++;
 	}
@@ -67,7 +66,7 @@ int str_isdigit(char *str)
 
 int	color_check(char *str)
 {
-	int number;
+	int	number;
 
 	if (!str_isdigit(str))
 		ft_error("invalid color");

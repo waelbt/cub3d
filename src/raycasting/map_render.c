@@ -65,7 +65,7 @@ void  projectewalls(t_cubscene* cubscene)
   i = -1;
   while (++i < cubscene->_width)
   {
-    distance =  cubscene->rays[i]->distance * cos(cubscene->rays[i]->angle - cubscene->player->rotationAngle);
+    distance =  cubscene->rays[i]->distance * cos(cubscene->rays[i]->angle - cubscene->player->rotation_angle);
     distance_projection_plane = cubscene->half_width / 0.577350269189626;
     wall_strip_height = (REC_SIZE / distance) * distance_projection_plane;
     rec(cubscene, i, cubscene->half_height - (wall_strip_height / 2), wall_strip_height);
@@ -87,7 +87,7 @@ void mini_rec(t_canvas *canvas, int x, int y, int color)
   }
 }
 
-void line(t_cubscene *cubscene, int x, int y, int color, double scale)
+void line(t_cubscene *cubscene, int x, int y, double scale)
 {
   int dx;
   int dy;
@@ -111,7 +111,7 @@ void line(t_cubscene *cubscene, int x, int y, int color, double scale)
   tmpy = cubscene->player->y * scale;
   while (++i <= steps)
   {
-    write_pixel(cubscene->canvas, tmpx, tmpy, color);
+    write_pixel(cubscene->canvas, tmpx, tmpy, RED);
     tmpx += xinc;
     tmpy += yinc;
   }
@@ -162,21 +162,21 @@ void update_player(t_cubscene *cubscene)
   int newplayerx[3];
   int newplayery[3];
 
-  cubscene->player->rotationAngle += cubscene->player->turnDirection * cubscene->player->rotationspeed;
-  movesptep = cubscene->player->walkDirection * cubscene->player->movespeed;
+  cubscene->player->rotation_angle += cubscene->player->turn_direction * cubscene->player->rotationspeed;
+  movesptep = cubscene->player->walk_direction * cubscene->player->movespeed;
   newplayerx[0] = movesptep;
   newplayery[0] = movesptep;
-   if (cubscene->player->walkDirection != 0)
+   if (cubscene->player->walk_direction != 0)
   {
     if (cubscene->player->flag)
     {
-      newplayerx[0] *= cos(cubscene->player->rotationAngle - M_PI / 2);
-      newplayery[0] *= sin(cubscene->player->rotationAngle - M_PI / 2);
+      newplayerx[0] *= cos(cubscene->player->rotation_angle - M_PI / 2);
+      newplayery[0] *= sin(cubscene->player->rotation_angle - M_PI / 2);
     }
     else
     {
-      newplayerx[0] *= cos(cubscene->player->rotationAngle);
-      newplayery[0] *= sin(cubscene->player->rotationAngle);
+      newplayerx[0] *= cos(cubscene->player->rotation_angle);
+      newplayery[0] *= sin(cubscene->player->rotation_angle);
     }
   }
   newplayerx[0] += cubscene->player->x;

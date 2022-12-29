@@ -19,22 +19,22 @@ int	key_handler(int keycode, t_cubscene *cubscene)
 	if (keycode == 53)
 		exit(0);
 	else if (keycode == DOWN)
-		cubscene->player->walkDirection = -1;
+		cubscene->player->walk_direction = -1;
 	else if (keycode == UP)
-		cubscene->player->walkDirection = 1;
+		cubscene->player->walk_direction = 1;
 	else if (keycode == RIGHT_ARROW)
-		cubscene->player->turnDirection = 1;
+		cubscene->player->turn_direction = 1;
 	else if (keycode == LEFT_ARROW)
-		cubscene->player->turnDirection = -1;
+		cubscene->player->turn_direction = -1;
 	else if (keycode == RIGHT)
 	{
 		cubscene->player->flag = 1;
-		cubscene->player->walkDirection = -1;
+		cubscene->player->walk_direction = -1;
 	}
 	else if (keycode == LEFT)
 	{
 		cubscene->player->flag = 1;
-		cubscene->player->walkDirection = 1;
+		cubscene->player->walk_direction = 1;
 	}
 	return (0);
 }
@@ -42,16 +42,16 @@ int	key_handler(int keycode, t_cubscene *cubscene)
 int	key_release(int keycode, t_cubscene *cubscene)
 {
 	if (keycode == DOWN)
-		cubscene->player->walkDirection = 0;
+		cubscene->player->walk_direction = 0;
 	else if (keycode == UP)
-		cubscene->player->walkDirection = 0;
+		cubscene->player->walk_direction = 0;
 	else if (keycode == RIGHT_ARROW)
-		cubscene->player->turnDirection = 0;
+		cubscene->player->turn_direction = 0;
 	else if (keycode == LEFT_ARROW)
-		cubscene->player->turnDirection = 0;
+		cubscene->player->turn_direction = 0;
 	else if (keycode == RIGHT || keycode == LEFT)
 	{
-		cubscene->player->walkDirection = 0;
+		cubscene->player->walk_direction = 0;
 		cubscene->player->flag = 0;
 	}
 	return (0);

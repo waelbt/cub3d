@@ -40,5 +40,6 @@ int		identifier(t_lexer *lexer);
 int		identifier_value(t_lexer *lexer);
 // int		identifier_texture_value(t_lexer *lexer);
 int		identifier_color(t_lexer *lexer);
+void	free_lexer(t_lexer *lexer);
 
 #endif

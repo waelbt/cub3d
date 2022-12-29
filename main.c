@@ -39,10 +39,10 @@ void	render_minimap(t_cubscene *cubscene)
 	int		y;
 
 	i = -1;
-	x = cubscene->player->x + cos(cubscene->player->rotationAngle) * 60;
-	y = cubscene->player->y + sin(cubscene->player->rotationAngle) * 60;
+	x = cubscene->player->x + cos(cubscene->player->rotation_angle) * 60;
+	y = cubscene->player->y + sin(cubscene->player->rotation_angle) * 60;
 	render_env(cubscene);
-	line(cubscene, x, y, RED, SCALE);
+	line(cubscene, x, y, SCALE);
 	render_player(cubscene, RED);
 }
 

@@ -6,7 +6,7 @@ CC				=	cc
 
 HEADER			=	src/includes/cub3D.h
 
-CFLAGS			=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS			=	-Wall -Wextra -Werror #-g -fsanitize=address
 
 GNL				=	get_next_line_utils get_next_line
 
@@ -16,7 +16,7 @@ GENERAL_TOOLS	= $(addsuffix .c, $(addprefix src/general_tools/GNL/, $(GNL)))
 
 LEXER			=	identifier_lexer lexer
 
-TOOLS			=	filter_cases parse_function tools
+TOOLS			=	filter_cases parse_function tools parsing_one
 
 PARSING			=  	src/parsing/cubscene_parsing.c \
 					$(addsuffix .c, $(addprefix src/parsing/lexer/, $(LEXER))) \

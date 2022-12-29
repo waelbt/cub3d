@@ -8,22 +8,22 @@
 //   else if (keycode == DOWN || keycode == DOWN_ARROW)
 //   {
 //     cubscene->frame_rate = 30;
-//     cubscene->player->walkDirection = -1;
+//     cubscene->player->walk_direction = -1;
 //   }
 //   else if (keycode == UP || keycode == UP_ARROW)
 //   {
 //     cubscene->frame_rate = 30;
-//     cubscene->player->walkDirection = 1;
+//     cubscene->player->walk_direction = 1;
 //   }
 //   else if (keycode == RIGHT || keycode == RIGHT_ARROW)
 //   {
 //     cubscene->frame_rate = 30;
-//     cubscene->player->turnDirection = 1;
+//     cubscene->player->turn_direction = 1;
 //   }
 //   else if (keycode == LEFT || keycode == LEFT_ARROW)
 //   {
 //     cubscene->frame_rate = 30;
-//     cubscene->player->turnDirection = -1;
+//     cubscene->player->turn_direction = -1;
 //   }
 //   return (0);
 // }
