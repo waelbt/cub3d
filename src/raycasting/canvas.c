@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:26:19 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/29 18:54:49 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/29 16:03:37 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_canvas *new_canvas(void *img,int width, int height)
     canvas = (t_canvas *)malloc(sizeof(t_canvas));
     canvas->width = width;
     canvas->height = height;
+    //mlx_new_image(mlx, width, height)
     canvas->img = img;
     canvas->addr = mlx_get_data_addr(canvas->img, &canvas->bits_per_pixel, &canvas->line_length, &canvas->endian);
     return (canvas);
