@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:26:19 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 15:37:46 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/29 16:03:37 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ t_canvas *new_canvas(void *img,int width, int height)
 
 int convert_color(t_color *color)
 {
-	return ( color->blue << 0 ) + ( color->green << 8 ) + ( color->red << 16 );
+    int decimal_color;
+
+    decimal_color =  ( color->blue << 0 ) + ( color->green << 8 ) + ( color->red << 16 );
+    free(color);
+	return decimal_color;
 }
 
 void write_pixel(t_canvas *canvas, int x, int y, unsigned int color)
@@ -51,8 +55,8 @@ t_player *new_player(int x, int y, char character)
     player->radius = 6;
     player->character = character;
     player->turnDirection = 0;
-    player->walkDirection = 0;
     player->flag = 0;
+    player->walkDirection = 0;
     if (character == 'N')
         player->rotationAngle = 3 * M_PI_2;
     else if (character == 'S')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys_events.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchokri <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 20:16:27 by lchokri           #+#    #+#             */
-/*   Updated: 2022/12/28 20:16:50 by lchokri          ###   ########.fr       */
+/*   Updated: 2022/12/29 16:07:18 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	key_handler(int keycode, t_cubscene *cubscene)
 {
 	cubscene->frame_rate = 30;
-	if (keycode == 53 || keycode < 0)
+	if (keycode == 53)
 		exit(0);
 	else if (keycode == DOWN)
 		cubscene->player->walkDirection = -1;

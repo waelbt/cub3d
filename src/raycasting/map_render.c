@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/28 12:40:53 by lchokri          ###   ########.fr       */
+/*   Updated: 2022/12/29 17:45:58 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void rec(t_cubscene *cubscene, int x, int y, int h)
   else 
     x2 = (int)cubscene->rays[x]->_x % cubscene->so_canvas->width;
     
-    i = REC_SIZE / cubscene->so_canvas->height;
+  i = REC_SIZE / cubscene->so_canvas->height;
   while (j[0] < h)
   {
     color = get_color_from_img(get_dir(cubscene, x),x2, j[0] * k);
@@ -163,7 +163,7 @@ void update_player(t_cubscene *cubscene)
   movesptep = cubscene->player->walkDirection * cubscene->player->movespeed;
   newplayerx[0] = movesptep;
   newplayery[0] = movesptep;
-  if (cubscene->player->walkDirection != 0)
+   if (cubscene->player->walkDirection != 0)
   {
     if (cubscene->player->flag)
     {

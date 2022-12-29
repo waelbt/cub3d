@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:18:13 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/22 03:40:53 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/29 17:26:17 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	fill_textures(t_cubscene *cubscene, t_lexer *lexer, char *find)
 	char	*str;
 	char	*strim;
 	char	**types;
+	int fd;
 
 	i = -1;
 	types = fill_types();
@@ -67,6 +68,10 @@ void	fill_textures(t_cubscene *cubscene, t_lexer *lexer, char *find)
 	if ((str && !ft_strcmp(str, "/.xpm"))
 		|| !ft_strcmp(cubscene->texture->path[i], ".xpm"))
 		ft_error("extension neeed a name -_-");
+	fd = open(cubscene->texture->path[i], 0);
+	if(fd < 0)
+		ft_error("invalid texture");
+	close(fd);
 	free(strim);
 	free(types);
 }
