@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:43:24 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/28 19:46:22 by lchokri          ###   ########.fr       */
+/*   Updated: 2022/12/29 16:01:16 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ int	main(int argc, char **argv)
 	mlx_hook(cubscene->win, 17, 0, close_x, cubscene);
 	mlx_loop_hook(cubscene->mlx, render, cubscene);
 	mlx_loop(cubscene->mlx);
+	system("leaks cub3D");
 	return (EXIT_SUCCESS);
 }

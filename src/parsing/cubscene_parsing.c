@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:50:37 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 14:41:58 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/29 15:44:48 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_cubscene	*new_cubscene(void)
 	cubscene->player = NULL;
 	cubscene->map_width = 0;
 	cubscene->rays = NULL;
-	cubscene->counter = 0;
 	cubscene->map = malloc(sizeof(char *));
 	cubscene->map[0] = NULL;
 	cubscene->map_height = 0;
@@ -92,6 +91,8 @@ void	check_map(t_cubscene *cubscene)
 	while (++i[0] < cubscene->map_height)
 	{
 		chunks = ft_split(cubscene->map[i[0]], 32);
+		if(!chunks[0])
+			ft_error("undefine elements");
 		i[1] = -1;
 		while (chunks[++i[1]])
 		{
@@ -105,7 +106,7 @@ void	check_map(t_cubscene *cubscene)
 		ft_free(chunks);
 	}
 	if (position_element != 1)
-		ft_error("invalid staring position !");
+		ft_error("zero or more then one staring position !");
 }
 
 void	except_for_the_map(t_cubscene *cubscene, t_lexer *lexer, int *counter)
@@ -138,6 +139,7 @@ void	except_for_the_map(t_cubscene *cubscene, t_lexer *lexer, int *counter)
 void	parsing(int fd, t_cubscene *cubscene)
 {
 	t_lexer		*lexer;
+	static int 	end_flag;
 	static int	counter;
 
 	while (1)
@@ -152,13 +154,13 @@ void	parsing(int fd, t_cubscene *cubscene)
 		if (lexer->c == '\n')
 		{
 			if (!cubscene->map_height)
-			{
-				free(lexer->contents);
-				free(lexer);
-				continue ;
-			}
-			ft_error("can't have empty lines inside a map -_-");
+				free(lexer->contents), free(lexer);
+			else
+				end_flag = 1;
+			continue ;
 		}
+		if (end_flag)
+			ft_error("you can't have extra elements after map elements");
 		if (counter < 6)
 			except_for_the_map(cubscene, lexer, &counter);
 		else

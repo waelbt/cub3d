@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/28 12:40:53 by lchokri          ###   ########.fr       */
+/*   Updated: 2022/12/29 16:43:11 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,25 @@ t_canvas *get_dir(t_cubscene *cubscene, int x)
 void rec(t_cubscene *cubscene, int x, int y, int h)
 {
   int	j[2] ;
-  double k = ((float)cubscene->so_canvas->height / h);
-  int	color;
+  //double k = ((float)cubscene->so_canvas->height / h);
+  // int	color;
   double i;
-  int	x2;
+  // int	x2;
 
   j[0] = 0;
-  if (cubscene->rays[x]->ver_hit)
-    x2 = (int)cubscene->rays[x]->_y % cubscene->so_canvas->width;
-  else 
-    x2 = (int)cubscene->rays[x]->_x % cubscene->so_canvas->width;
+  // if (cubscene->rays[x]->ver_hit)
+  //   x2 = (int)cubscene->rays[x]->_y % cubscene->so_canvas->width;
+  // else 
+  //   x2 = (int)cubscene->rays[x]->_x % cubscene->so_canvas->width;
     
-    i = REC_SIZE / cubscene->so_canvas->height;
+  i = REC_SIZE / cubscene->so_canvas->height;
   while (j[0] < h)
   {
-    color = get_color_from_img(get_dir(cubscene, x),x2, j[0] * k);
+    // color = get_color_from_img(get_dir(cubscene, x),x2, j[0] * k);
     j[1] = 0;
     while (j[1] < i)
     {
-      write_pixel(cubscene->canvas, x, (y + j[0]) , color);
+      write_pixel(cubscene->canvas, x, (y + j[0]) , 0);
         j[1]++;
     }
     j[0]++;
@@ -163,10 +163,18 @@ void update_player(t_cubscene *cubscene)
   movesptep = cubscene->player->walkDirection * cubscene->player->movespeed;
   newplayerx[0] = movesptep;
   newplayery[0] = movesptep;
-  if (cubscene->player->walkDirection != 0)
+   if (cubscene->player->walkDirection != 0)
   {
-    newplayerx[0] *= cos(cubscene->player->rotationAngle);
-    newplayery[0] *= sin(cubscene->player->rotationAngle);
+    if (cubscene->player->flag)
+    {
+      newplayerx[0] *= cos(cubscene->player->rotationAngle - M_PI / 2);
+      newplayery[0] *= sin(cubscene->player->rotationAngle - M_PI / 2);
+    }
+    else
+    {
+      newplayerx[0] *= cos(cubscene->player->rotationAngle);
+      newplayery[0] *= sin(cubscene->player->rotationAngle);
+    }
   }
   newplayerx[0] += cubscene->player->x;
   newplayery[0] += cubscene->player->y;
