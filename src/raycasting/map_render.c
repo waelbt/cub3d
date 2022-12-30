@@ -15,38 +15,43 @@
 int	get_dir(t_cubscene *cubscene, int x)
 {
 	if (cubscene->rays[x]->ver_hit && cubscene->rays[x]->is_ray_facing_left)
-		return (2);
+		return (WE);
 	else if (cubscene->rays[x]->ver_hit
 		&& cubscene->rays[x]->is_ray_facing_right)
-		return (3);
+		return (EA);
 	else if (!cubscene->rays[x]->ver_hit && cubscene->rays[x]->is_ray_facing_up)
-		return (0);
-	return (1);
+		return (NO);
+	return (SO);
 }
 
 void	rec(t_cubscene *cubscene, int x, int y, int h)
 {
-	int		j[2];
-	int		z = get_dir(cubscene, x);
-	double	k = ((float)cubscene->tx_canvas[z]->height / h);
-	double	k2 = ((float)cubscene->tx_canvas[z]->width / REC_SIZE);
 	int		x2;
-	
-	j[0] = 0;
-	if (cubscene->rays[x]->ver_hit)
-		x2 = (((int)cubscene->rays[x]->_y % cubscene->tx_canvas[z]->width) * k2);
-	else 
-		x2 = (((int)cubscene->rays[x]->_x % cubscene->tx_canvas[z]->width) * k2);	
+	int		y1;
+	int		y2;
+	int		w;
+	double	k[2];
 
-	while (j[0] < h)
+	y2 = 0;
+	w = get_dir(cubscene, x);
+	k[0] = ((float)cubscene->tx_canvas[w]->height / h);
+	k[1] = ((float)cubscene->tx_canvas[w]->width / REC_SIZE);
+	if (cubscene->rays[x]->ver_hit)
+		x2 = (((int)cubscene->rays[x]->_y
+					% cubscene->tx_canvas[w]->width) * k[1]);
+	else
+		x2 = (((int)cubscene->rays[x]->_x
+					% cubscene->tx_canvas[w]->width) * k[1]);
+	while (y2 < h)
 	{
-		int y1 = floor(j[0] * k);
-		write_pixel(cubscene->canvas, x, (y + j[0]) , cubscene->tx_canvas[z]->color[y1][x2]);
-	 // if (x2 > cubscene->tx_canvas[z]->width)
-	 //			printf(" x2= %d		y1 = %d color= %u\n", x2, y1, cubscene->tx_canvas[z]->color[y1][x2]);
-		j[0]++;
+		y1 = floor(y2 * k[0]);
+		write_pixel(cubscene->canvas, x, (y + y2),
+			cubscene->tx_canvas[w]->color[y1][x2]);
+		y2++;
 	}
 }
+//if (x2 > cubscene->tx_canvas[w]->width)
+	//printf(" x2= %d		y1 = %d color= %u\n", x2, y1, cubscene->tx_canvas[w]->color[y1][x2]);
 
 //static double tan = 0.577350269189626; // tan(FIELD_OF_ANGLE_2)
 void	projectewalls(t_cubscene *cubscene)
@@ -65,76 +70,6 @@ void	projectewalls(t_cubscene *cubscene)
 		wall_strip_height = (REC_SIZE / distance) * distance_projection_plane;
 		rec(cubscene, i, cubscene->half_height
 			- (wall_strip_height / 2), wall_strip_height);
-	}
-}
-
-void	mini_rec(t_canvas *canvas, int x, int y, int color)
-{
-	int	i;
-	int	j;
-
-	j = -1;
-	while (++j < REC_SIZE)
-	{
-		i = -1;
-		while (++i < REC_SIZE)
-			write_pixel(canvas, (i + (x * REC_SIZE)) * SCALE,
-				(j + (y * REC_SIZE)) * SCALE, color);
-	}
-}
-
-void	line(t_cubscene *cubscene, int x, int y, double scale)
-{
-	int		dx;
-	int		dy;
-	int		i;
-	int		steps;
-	float	xinc;
-	float	yinc;
-	float	tmpx;
-	float	tmpy;
-
-	i = -1;
-	dx = x * scale - cubscene->player->x * scale;
-	dy = y * scale - cubscene->player->y * scale;
-	if (abs(dx) > abs(dy))
-		steps = abs(dx);
-	else
-		steps = abs(dy);
-	xinc = dx / (float) steps;
-	yinc = dy / (float) steps;
-	tmpx = cubscene->player->x * scale;
-	tmpy = cubscene->player->y * scale;
-	while (++i <= steps)
-	{
-		write_pixel(cubscene->canvas, tmpx, tmpy, RED);
-		tmpx += xinc;
-		tmpy += yinc;
-	}
-}
-
-void	render_player(t_cubscene *cubscene, int color)
-{
-	int		i;
-	int		j;
-	int		point_x;
-	int		point_y;
-	int		radius;
-
-	j = -1;
-	radius = cubscene->player->radius;
-	while (radius > 0)
-	{
-		i = -1;
-		while (++i < 360)
-		{
-			point_x = radius * cos(i) * SCALE;
-			point_y = radius * sin(i) * SCALE;
-			write_pixel(cubscene->canvas, point_x
-				+ (cubscene->player->x * SCALE),
-				point_y + (cubscene->player->y * SCALE), color);
-		}
-		radius--;
 	}
 }
 
@@ -159,11 +94,12 @@ void	update_player(t_cubscene *cubscene)
 	int	newplayerx[3];
 	int	newplayery[3];
 
-	cubscene->player->rotation_angle += cubscene->player->turn_direction * cubscene->player->rotationspeed;
+	cubscene->player->rotation_angle
+		+= cubscene->player->turn_direction * cubscene->player->rotationspeed;
 	movesptep = cubscene->player->walk_direction * cubscene->player->movespeed;
 	newplayerx[0] = movesptep;
 	newplayery[0] = movesptep;
-	 if (cubscene->player->walk_direction != 0)
+	if (cubscene->player->walk_direction != 0)
 	{
 		if (cubscene->player->flag)
 		{
