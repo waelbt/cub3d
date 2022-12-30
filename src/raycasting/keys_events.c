@@ -12,7 +12,6 @@
 
 #include "../includes/cub3D.h"
 
-
 int	key_handler(int keycode, t_cubscene *cubscene)
 {
 	cubscene->frame_rate = 30;
@@ -62,4 +61,3 @@ int	close_x(void)
 	exit (0);
 	return (0);
 }
-
