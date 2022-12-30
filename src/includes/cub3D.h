@@ -113,10 +113,6 @@ typedef struct cubscene
 	int			floor;
 	int			counter;
 	char		**map;
-	// t_canvas	*no_canvas;
-	// t_canvas	*we_canvas;
-	// t_canvas	*ea_canvas;
-	// t_canvas	*so_canvas;
 	t_canvas	**tx_canvas;
 	int			map_height;
 	int			frame_rate;
@@ -147,7 +143,7 @@ void			ray_render(t_cubscene *cubscene, int index);
 t_rays			*new_ray(double angle, t_cubscene *cubscene);
 void			cast_all_rays(t_cubscene *cubscene);
 void			ft_free_rays(t_cubscene *cubscene);
-int				hasWallAt(t_cubscene *cubscene, double x, double y);
+int				has_wall_at(t_cubscene *cubscene, double x, double y);
 void			projectewalls(t_cubscene *cubscene);
 void			rec(t_cubscene *cubscene, int x, int y, int h);
 void			texture_init(t_cubscene *cubscene);
@@ -159,4 +155,7 @@ int				posi(char *str);
 void			player_corners(t_cubscene *cubscene, size_t i, size_t j, size_t len);
 void			corners(t_cubscene *cubscene, size_t i, size_t j, size_t len);
 int				corners_check(char c);
+double			*hor_intersection(t_cubscene *cubscene, int index);
+double			*ver_intersection(t_cubscene *cubscene, int index);
+
 #endif
