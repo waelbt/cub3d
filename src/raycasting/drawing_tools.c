@@ -29,28 +29,28 @@ void	mini_rec(t_canvas *canvas, int x, int y, int color)
 
 void	line(t_cubscene *cubscene, int x, int y, double scale)
 {
-	int		dx;
-	int		dy;
+	int		d[2];
+	int		i;
 	int		steps;
-	float	tmpx;
-	float	tmpy;
+	float	inc[2];
+	float	tmp[2];
 
-	dx = x * scale - cubscene->player->x * scale;
-	dy = y * scale - cubscene->player->y * scale;
-	if (abs(dx) > abs(dy))
-		steps = abs(dx);
+	i = -1;
+	d[X] = x * scale - cubscene->player->x * scale;
+	d[Y] = y * scale - cubscene->player->y * scale;
+	if (abs(d[X]) > abs(d[Y]))
+		steps = abs(d[X]);
 	else
-		steps = abs(dy);
-	dx = dx / (float) steps;
-	dy = dy / (float) steps;
-	tmpx = cubscene->player->x * scale;
-	tmpy = cubscene->player->y * scale;
-	while (steps)
+		steps = abs(d[Y]);
+	inc[X] = d[X] / (float) steps;
+	inc[Y] = d[Y] / (float) steps;
+	tmp[X] = cubscene->player->x * scale;
+	tmp[Y] = cubscene->player->y * scale;
+	while (++i <= steps)
 	{
-		write_pixel(cubscene->canvas, tmpx, tmpy, RED);
-		tmpx += dx;
-		tmpy += dy;
-		steps--;
+		write_pixel(cubscene->canvas, tmp[X], tmp[Y], RED);
+		tmp[X] += inc[X];
+		tmp[Y] += inc[Y];
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 04:00:18 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/26 19:27:30 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/30 17:56:04 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,38 +38,11 @@ double	distance(t_cubscene *cubscene, int index, double x2, double y2)
 		* sin(cubscene->rays[index]->angle));
 }
 
-void	intersection(t_cubscene *cubscene, int index)
-{
-	double	*horz_hit;
-	double	*ver_hit;
-	double	horzditance;
-	double	verditance;
-
-	horzditance = INT_MAX;
-	verditance = INT_MAX;
-	horz_hit = hor_intersection(cubscene, index);
-	ver_hit = ver_intersection(cubscene, index);
-	if (horz_hit[HIT_STAT])
-		horzditance = distance(cubscene, index, horz_hit[X], horz_hit[Y]);
-	if (ver_hit[HIT_STAT])
-		verditance = distance(cubscene, index, ver_hit[X], ver_hit[Y]);
-	cubscene->rays[index]->distance = horzditance;
-	cubscene->rays[index]->_x = horz_hit[X];
-	cubscene->rays[index]->_y = horz_hit[Y];
-	cubscene->rays[index]->ver_hit = false;
-	if (verditance < horzditance)
-	{
-		cubscene->rays[index]->distance = verditance;
-		cubscene->rays[index]->_x = ver_hit[X];
-		cubscene->rays[index]->_y = ver_hit[Y];
-		cubscene->rays[index]->ver_hit = true;
-	}
-}
-
 void	cast_all_rays(t_cubscene *cubscene)
 {
 	int		column_id;
 	double	ray_angle;
+	double	tan_angle;
 
 	column_id = 0;
 	cubscene->rays = (t_rays **) malloc(sizeof(t_rays) * cubscene->_width);
@@ -77,7 +50,8 @@ void	cast_all_rays(t_cubscene *cubscene)
 	while (column_id < cubscene->_width)
 	{
 		cubscene->rays[column_id] = new_ray(ray_angle, cubscene);
-		intersection(cubscene, column_id);
+		tan_angle = tan(cubscene->rays[column_id]->angle);
+		intersection(cubscene, column_id, tan_angle);
 		ray_angle += ((double) FIELD_OF_ANGLE) / cubscene->_width;
 		column_id++;
 	}
