@@ -46,11 +46,6 @@ void texture_init(t_cubscene *cubscene)
 	cubscene->texture->west_image = mlx_xpm_file_to_image(cubscene->mlx, cubscene->texture->path[WE], &width[WE], &height[WE]);
  	if(!cubscene->texture->north_image ||!cubscene->texture->east_image || !cubscene->texture->west_image || !cubscene->texture->south_image)
  		ft_error("invalid file or wrong path!");
-	while (++i <= EA)
-	{
-		if (width[i] != REC_SIZE|| height[i] != REC_SIZE)
-			ft_error("bad texture dimentions!");
-	}
 	cubscene->tx_canvas[NO] = new_canvas(cubscene->texture->north_image, width[NO], height[NO]);
 	cubscene->tx_canvas[SO] = new_canvas(cubscene->texture->south_image, width[SO], height[SO]);
 	cubscene->tx_canvas[EA] = new_canvas(cubscene->texture->east_image, width[EA], height[EA]);

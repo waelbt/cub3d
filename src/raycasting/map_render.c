@@ -26,30 +26,24 @@
 void rec(t_cubscene *cubscene, int x, int y, int h)
 {
   int	j[2] ;
-  double k = ((float)cubscene->tx_canvas[1]->height / h);
-//  int	color;
-  double i;
+  int z = get_dir(cubscene, x);
+  double k = ((float)cubscene->tx_canvas[z]->height / h);
+  double k2 = ((float)cubscene->tx_canvas[z]->width / REC_SIZE);
   int	x2;
-
+     
   j[0] = 0;
   if (cubscene->rays[x]->ver_hit)
-    x2 = (int)cubscene->rays[x]->_y % cubscene->tx_canvas[1]->width;
+    x2 = (((int)cubscene->rays[x]->_y % cubscene->tx_canvas[z]->width) * k2);
   else 
-    x2 = (int)cubscene->rays[x]->_x % cubscene->tx_canvas[1]->width;
-    
-  i = REC_SIZE / cubscene->tx_canvas[1]->height;
+    x2 = (((int)cubscene->rays[x]->_x % cubscene->tx_canvas[z]->width) * k2);
+
+ 
   while (j[0] < h)
   {
-   // color = get_color_from_img(get_dir(cubscene, x),x2, j[0] * k);
-    int z = get_dir(cubscene, x);
-    int y1 = j[0] * k;
-    j[1] = 0;
-    while (j[1] < i)
-    {
- //     printf("x = %d   y = %d\n", x2, y1);
-      write_pixel(cubscene->canvas, x, (y + j[0]) , cubscene->tx_canvas[z]->color[y1][x2]);
-        j[1]++;
-    }
+    int y1 = floor(j[0] * k);
+    write_pixel(cubscene->canvas, x, (y + j[0]) , cubscene->tx_canvas[z]->color[y1][x2]);
+   // if (x2 > cubscene->tx_canvas[z]->width)
+   //      printf(" x2= %d    y1 = %d color= %u\n", x2, y1, cubscene->tx_canvas[z]->color[y1][x2]);
     j[0]++;
   }
 }
