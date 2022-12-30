@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/29 17:45:58 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/30 16:11:06 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,19 @@ void	rec(t_cubscene *cubscene, int x, int y, int h)
 	k[0] = ((float)cubscene->tx_canvas[w]->height / h);
 	k[1] = ((float)cubscene->tx_canvas[w]->width / REC_SIZE);
 	if (cubscene->rays[x]->ver_hit)
-		x2 = (((int)cubscene->rays[x]->_y
-					% cubscene->tx_canvas[w]->width) * k[1]);
+		x2 = (int)(cubscene->rays[x]->_y * k[1]) % cubscene->tx_canvas[w]->width;
 	else
-		x2 = (((int)cubscene->rays[x]->_x
-					% cubscene->tx_canvas[w]->width) * k[1]);
+		x2 = (int)(cubscene->rays[x]->_x  * k[1]) % cubscene->tx_canvas[w]->width;
 	while (y2 < h)
 	{
+//if (x2 > cubscene->tx_canvas[w]->width )
+	//printf(" x2= %d		y1 = %d color= %u\n", x2, y1, cubscene->tx_canvas[w]->color[y1][x2]);
 		y1 = floor(y2 * k[0]);
 		write_pixel(cubscene->canvas, x, (y + y2),
 			cubscene->tx_canvas[w]->color[y1][x2]);
 		y2++;
 	}
 }
-//if (x2 > cubscene->tx_canvas[w]->width)
-	//printf(" x2= %d		y1 = %d color= %u\n", x2, y1, cubscene->tx_canvas[w]->color[y1][x2]);
 
 //static double tan = 0.577350269189626; // tan(FIELD_OF_ANGLE_2)
 void	projectewalls(t_cubscene *cubscene)

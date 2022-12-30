@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 01:45:06 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/29 19:42:32 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/30 17:56:17 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,8 @@ int				posi(char *str);
 void			player_corners(t_cubscene *cubscene, size_t i, size_t j, size_t len);
 void			corners(t_cubscene *cubscene, size_t i, size_t j, size_t len);
 int				corners_check(char c);
-double			*hor_intersection(t_cubscene *cubscene, int index);
-double			*ver_intersection(t_cubscene *cubscene, int index);
-
+void			hor(t_cubscene *cubscene, int index, double *hit, double tan);
+void			ver(t_cubscene *cubscene, int index, double *hit, double tan);
+void			intersection(t_cubscene *cubscene, int index, double tan_angle);
+double			distance(t_cubscene *cubscene, int index, double x2, double y2);
 #endif

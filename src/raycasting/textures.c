@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchokri <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 12:58:04 by lchokri           #+#    #+#             */
-/*   Updated: 2022/12/30 12:58:15 by lchokri          ###   ########.fr       */
+/*   Updated: 2022/12/30 16:05:25 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ void	init_colors(t_canvas *canvas)
 	int	x;
 	int	y;
 
-	x = -1;
 	y = 0;
 	canvas->color = (unsigned int **)malloc(sizeof(unsigned int *)
-			* canvas->height);
+		* canvas->height);
 	while (y < canvas->height)
 	{
 		canvas->color[y] = (unsigned int *)malloc(sizeof(unsigned int)
