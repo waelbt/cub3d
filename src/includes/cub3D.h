@@ -93,10 +93,10 @@ typedef struct texture
 		EA
 	} e_type;
 	char		**path;
-	void		*north_image;
-	void		*west_image;
-	void		*east_image;
-	void		*south_image;
+	void		*north;
+	void		*west;
+	void		*east;
+	void		*south;
 	int			tx_width;
 	int			tx_height;
 }	t_texture;
