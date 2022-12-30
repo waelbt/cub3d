@@ -12,18 +12,46 @@
 
 #include "../includes/cub3D.h"
 
+double	*intersections(t_cubscene *cubscene, double *intercept, double *step, int index)
+{
+	double	next_touch[2];
+	double	*hit;
+	double	x;
+	double	y;
+
+	hit = malloc(sizeof(double) * 3);
+	hit[HIT_STAT] = 0;
+	next_touch[X] = intercept[X];
+	next_touch[Y] = intercept[Y];
+	while (next_touch[X] >= 0 && next_touch[X] <= cubscene->_width
+		&& next_touch[Y] >= 0 && next_touch[Y] <= cubscene->_height)
+	{
+		x = 0;
+		y = 0;
+		if (cubscene->rays[index]->is_ray_facing_up)
+			x = 1;
+		if (cubscene->rays[index]->is_ray_facing_left)
+			y = 1;
+		if (has_wall_at(cubscene, next_touch[X] - y, next_touch[Y] - x))
+		{
+			hit[HIT_STAT] = 1;
+			hit[X] = next_touch[X];
+			hit[Y] = next_touch[Y];
+			break ;
+		}
+		next_touch[X] += step[X];
+		next_touch[Y] += step[Y];
+	}
+	return (hit);
+}
+
 double	*hor_intersection(t_cubscene *cubscene, int index)
 {
 	double	intercept[2];
 	double	step[2];
-	double	next_horz_touch[2];
-	double	*hit;
-	double	x;
 	double	tan_ray_angle;
 
-	hit = malloc(sizeof(double) * 3);
 	tan_ray_angle = 1 / tan(cubscene->rays[index]->angle);
-	hit[HIT_STAT] = 0;
 	intercept[Y] = ((int)(cubscene->player->y / REC_SIZE)) * REC_SIZE;
 	if (cubscene->rays[index]->is_ray_facing_down)
 		intercept[Y] += REC_SIZE;
@@ -37,39 +65,16 @@ double	*hor_intersection(t_cubscene *cubscene, int index)
 		step[X] *= -1;
 	if (cubscene->rays[index]->is_ray_facing_right && step[X] < 0)
 		step[X] *= -1;
-	next_horz_touch[X] = intercept[X];
-	next_horz_touch[Y] = intercept[Y];
-	while (next_horz_touch[X] >= 0 && next_horz_touch[X] <= cubscene->_width
-		&& next_horz_touch[Y] >= 0 && next_horz_touch[Y] <= cubscene->_height)
-	{
-		x = 0;
-		if (cubscene->rays[index]->is_ray_facing_up)
-			x = 1;
-		if (has_wall_at(cubscene, next_horz_touch[X], next_horz_touch[Y] - x))
-		{
-			hit[HIT_STAT] = 1;
-			hit[X] = next_horz_touch[X];
-			hit[Y] = next_horz_touch[Y];
-			break ;
-		}
-		next_horz_touch[X] += step[X];
-		next_horz_touch[Y] += step[Y];
-	}
-	return (hit);
+	return (intersections(cubscene, intercept, step, index));
 }
 
 double	*ver_intersection(t_cubscene *cubscene, int index)
 {
 	double	intercept[2];
 	double	step[2];
-	double	nextvertouch[2];
-	double	*hit;
-	double	x;
 	double	tan_ray_angle;
 
-	hit = malloc(sizeof(double) * 3);
 	tan_ray_angle = tan(cubscene->rays[index]->angle);
-	hit[HIT_STAT] = 0;
 	intercept[X] = ((int)(cubscene->player->x / REC_SIZE)) * REC_SIZE;
 	if (cubscene->rays[index]->is_ray_facing_right)
 		intercept[X] += REC_SIZE;
@@ -83,26 +88,5 @@ double	*ver_intersection(t_cubscene *cubscene, int index)
 		step[Y] *= -1;
 	if (cubscene->rays[index]->is_ray_facing_down && step[Y] < 0)
 		step[Y] *= -1;
-	nextvertouch[X] = intercept[X];
-	nextvertouch[Y] = intercept[Y];
-	while (nextvertouch[X] >= 0 && nextvertouch[X] <= cubscene->_width
-		&& nextvertouch[Y] >= 0 && nextvertouch[Y] <= cubscene->_height)
-	{
-		x = 0;
-		if (cubscene->rays[index]->is_ray_facing_left)
-			x = 1;
-		if (has_wall_at(cubscene, nextvertouch[X] - x, nextvertouch[Y]))
-		{
-			hit[HIT_STAT] = 1;
-			hit[X] = nextvertouch[X];
-			hit[Y] = nextvertouch[Y];
-			break ;
-		}
-		else
-		{
-			nextvertouch[X] += step[X];
-			nextvertouch[Y] += step[Y];
-		}
-	}
-	return (hit);
+	return (intersections(cubscene, intercept, step, index));
 }

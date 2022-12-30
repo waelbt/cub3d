@@ -53,19 +53,16 @@ void	intersection(t_cubscene *cubscene, int index)
 		horzditance = distance(cubscene, index, horz_hit[X], horz_hit[Y]);
 	if (ver_hit[HIT_STAT])
 		verditance = distance(cubscene, index, ver_hit[X], ver_hit[Y]);
+	cubscene->rays[index]->distance = horzditance;
+	cubscene->rays[index]->_x = horz_hit[X];
+	cubscene->rays[index]->_y = horz_hit[Y];
+	cubscene->rays[index]->ver_hit = false;
 	if (verditance < horzditance)
 	{
 		cubscene->rays[index]->distance = verditance;
 		cubscene->rays[index]->_x = ver_hit[X];
 		cubscene->rays[index]->_y = ver_hit[Y];
 		cubscene->rays[index]->ver_hit = true;
-	}
-	else
-	{
-		cubscene->rays[index]->distance = horzditance;
-		cubscene->rays[index]->_x = horz_hit[X];
-		cubscene->rays[index]->_y = horz_hit[Y];
-		cubscene->rays[index]->ver_hit = false;
 	}
 }
 

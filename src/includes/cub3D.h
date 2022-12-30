@@ -157,5 +157,6 @@ void			corners(t_cubscene *cubscene, size_t i, size_t j, size_t len);
 int				corners_check(char c);
 double			*hor_intersection(t_cubscene *cubscene, int index);
 double			*ver_intersection(t_cubscene *cubscene, int index);
+int	get_dir(t_cubscene *cubscene, int x);
 
 #endif

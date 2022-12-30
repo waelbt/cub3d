@@ -24,35 +24,6 @@ int	get_dir(t_cubscene *cubscene, int x)
 	return (SO);
 }
 
-void	rec(t_cubscene *cubscene, int x, int y, int h)
-{
-	int		x2;
-	int		y1;
-	int		y2;
-	int		w;
-	double	k[2];
-
-	y2 = 0;
-	w = get_dir(cubscene, x);
-	k[0] = ((float)cubscene->tx_canvas[w]->height / h);
-	k[1] = ((float)cubscene->tx_canvas[w]->width / REC_SIZE);
-	if (cubscene->rays[x]->ver_hit)
-		x2 = (((int)cubscene->rays[x]->_y
-					% cubscene->tx_canvas[w]->width) * k[1]);
-	else
-		x2 = (((int)cubscene->rays[x]->_x
-					% cubscene->tx_canvas[w]->width) * k[1]);
-	while (y2 < h)
-	{
-		y1 = floor(y2 * k[0]);
-		write_pixel(cubscene->canvas, x, (y + y2),
-			cubscene->tx_canvas[w]->color[y1][x2]);
-		y2++;
-	}
-}
-//if (x2 > cubscene->tx_canvas[w]->width)
-	//printf(" x2= %d		y1 = %d color= %u\n", x2, y1, cubscene->tx_canvas[w]->color[y1][x2]);
-
 //static double tan = 0.577350269189626; // tan(FIELD_OF_ANGLE_2)
 void	projectewalls(t_cubscene *cubscene)
 {
@@ -88,6 +59,24 @@ int	has_wall_at(t_cubscene *cubscene, double x, double y)
 	return (0);
 }
 
+void	update_player_pos(t_cubscene *cubscene, int *newx, int *newy)
+{
+	newx[0] += cubscene->player->x;
+	newy[0] += cubscene->player->y;
+	newx[1] = newx[0] + cubscene->player->radius;
+	newx[2] = newx[0] - cubscene->player->radius;
+	newy[1] = newy[0] + cubscene->player->radius;
+	newy[2] = newy[0] - cubscene->player->radius;
+	if (!has_wall_at(cubscene, newx[1], newy[1])
+		&& !has_wall_at(cubscene, newx[2], newy[2])
+		&& !has_wall_at(cubscene, newx[1], newy[2])
+		&& !has_wall_at(cubscene, newx[2], newy[1]))
+	{
+		cubscene->player->x = newx[0];
+		cubscene->player->y = newy[0];
+	}
+}
+
 void	update_player(t_cubscene *cubscene)
 {
 	int	movesptep;
@@ -103,7 +92,7 @@ void	update_player(t_cubscene *cubscene)
 	{
 		if (cubscene->player->flag)
 		{
-		newplayerx[0] *= cos(cubscene->player->rotation_angle - M_PI / 2);
+			newplayerx[0] *= cos(cubscene->player->rotation_angle - M_PI / 2);
 			newplayery[0] *= sin(cubscene->player->rotation_angle - M_PI / 2);
 		}
 		else
@@ -112,18 +101,5 @@ void	update_player(t_cubscene *cubscene)
 			newplayery[0] *= sin(cubscene->player->rotation_angle);
 		}
 	}
-	newplayerx[0] += cubscene->player->x;
-	newplayery[0] += cubscene->player->y;
-	newplayerx[1] = newplayerx[0] + cubscene->player->radius;
-	newplayerx[2] = newplayerx[0] - cubscene->player->radius;
-	newplayery[1] = newplayery[0] + cubscene->player->radius;
-	newplayery[2] = newplayery[0] - cubscene->player->radius;
-	if (!has_wall_at(cubscene, newplayerx[1], newplayery[1])
-		&& !has_wall_at(cubscene, newplayerx[2], newplayery[2])
-		&& !has_wall_at(cubscene, newplayerx[1], newplayery[2])
-		&& !has_wall_at(cubscene, newplayerx[2], newplayery[1]))
-	{
-		cubscene->player->x = newplayerx[0];
-		cubscene->player->y = newplayery[0];
-	}
+	update_player_pos(cubscene, newplayerx, newplayery);
 }

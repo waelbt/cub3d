@@ -78,3 +78,28 @@ void	render_player(t_cubscene *cubscene, int color)
 		radius--;
 	}
 }
+
+void	rec(t_cubscene *cubscene, int x, int y, int h)
+{
+	int		x2;
+	int		y1;
+	int		y2;
+	int		w;
+	double	k[2];
+
+	y2 = 0;
+	w = get_dir(cubscene, x);
+	k[0] = ((float)cubscene->tx_canvas[w]->height / h);
+	k[1] = ((float)cubscene->tx_canvas[w]->width / REC_SIZE);
+	x2 = (int)(cubscene->rays[x]->_x * k[1]) % cubscene->tx_canvas[w]->width;
+	if (cubscene->rays[x]->ver_hit)
+		x2 = (int)(cubscene->rays[x]->_y * k[1])
+			% cubscene->tx_canvas[w]->width;
+	while (y2 < h)
+	{
+		y1 = floor(y2 * k[0]);
+		write_pixel(cubscene->canvas, x, (y + y2),
+			cubscene->tx_canvas[w]->color[y1][x2]);
+		y2++;
+	}
+}
