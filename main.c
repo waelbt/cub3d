@@ -89,7 +89,6 @@ int	main(int argc, char **argv)
 	t_cubscene	*cubscene;
 	void		*canvas;
 
-	(void)argv;
 	if (argc != 2)
 		ft_error(strerror(EINVAL));
 	cubscene = new_cubscene();
@@ -111,6 +110,5 @@ int	main(int argc, char **argv)
 	mlx_hook(cubscene->win, 17, 0, close_x, cubscene);
 	mlx_loop_hook(cubscene->mlx, render, cubscene);
 	mlx_loop(cubscene->mlx);
-	system("leaks cub3D");
 	return (EXIT_SUCCESS);
 }
