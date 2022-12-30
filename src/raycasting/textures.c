@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   textures.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lchokri <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/30 12:58:04 by lchokri           #+#    #+#             */
+/*   Updated: 2022/12/30 12:58:15 by lchokri          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3D.h"
 
 void	init_colors(t_canvas *canvas)
@@ -24,7 +36,7 @@ void	init_colors(t_canvas *canvas)
 
 void	texture_canvas_init(t_cubscene *cubscene, int *w, int *h)
 {
-	int	i;
+	int			i;
 	t_texture	*tmp;
 
 	i = -1;
@@ -57,11 +69,6 @@ void	texture_init(t_cubscene *cubscene)
 			tmp->path[WE], &w[WE], &h[WE]);
 	if (!tmp->north || !tmp->east || !tmp->west || !tmp->south)
 		ft_error("invalid file or wrong path!");
-	while (++i <= EA)
-	{
-		if (w[i] != REC_SIZE || h[i] != REC_SIZE)
-			ft_error("bad texture dimentions!");
-	}
 	texture_canvas_init(cubscene, w, h);
 }
 
