@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:43:24 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/31 13:15:47 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/31 14:13:19 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	render(t_cubscene *cubscene)
 		cast_all_rays(cubscene);
 		ft_clear(cubscene);
 		projectewalls(cubscene);
-		//render_minimap(cubscene);
 		ft_free_rays(cubscene);
 		mlx_put_image_to_window(cubscene->mlx, cubscene->win,
 			cubscene->canvas->img, 0, 0);

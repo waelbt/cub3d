@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:26:19 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/29 16:03:37 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/31 14:06:41 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_player	*new_player(int x, int y, char character)
 		player->rotation_angle = 0;
 	else if (character == 'W')
 		player->rotation_angle = M_PI;
-	player->movespeed = 10;
+	player->movespeed = 6;
 	player->rotationspeed = 0.05;
 	return (player);
 }

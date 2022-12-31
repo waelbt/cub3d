@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/31 13:14:42 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/31 14:04:38 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,9 @@ int	get_dir(t_cubscene *cubscene, int x)
 	return (SO);
 }
 
-//static double tan = 0.577350269189626; // tan(FIELD_OF_ANGLE_2)
+//distance_projection_plane = WIDTH_2 / tan(FIELD_OF_ANGLE_2);
 void	projectewalls(t_cubscene *cubscene)
 {
-	double	distance_projection_plane;
 	double	wall_strip_height;
 	double	distance;
 	int		i;
@@ -37,8 +36,7 @@ void	projectewalls(t_cubscene *cubscene)
 	{
 		distance = cubscene->rays[i]->distance
 			* cos(cubscene->rays[i]->angle - cubscene->player->rotation_angle);
-		distance_projection_plane = WIDTH_2 / 0.577350269189626;
-		wall_strip_height = (REC_SIZE / distance) * distance_projection_plane;
+		wall_strip_height = (REC_SIZE / distance) * 935.3074360871934;
 		rec(cubscene, i, HEIGHT_2
 			- (wall_strip_height / 2), wall_strip_height);
 	}

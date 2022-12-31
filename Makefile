@@ -6,7 +6,7 @@ CC				=	cc
 
 HEADER			=	src/includes/cub3D.h
 
-CFLAGS			=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS			=	-Wall -Wextra -Werror
 
 GNL				=	get_next_line_utils get_next_line
 
@@ -40,12 +40,12 @@ $(NAME): $(HEADER) main.c $(LIBFT) $(OBJ)
 $(LIBFT) :
 	@make -C src/general_tools/libft/
 clean :
-#@make clean -C src/general_tools/libft/
+	@make clean -C src/general_tools/libft/
 	@$(RM) $(OBJ)
 	@$(RM)	cub3D.dSYM
 
 fclean : clean
-#@make fclean -C src/general_tools/libft/
+	@make fclean -C src/general_tools/libft/
 	@$(RM) $(NAME)
 
 re : fclean all

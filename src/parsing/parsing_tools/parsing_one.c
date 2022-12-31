@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 18:32:15 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/29 19:42:05 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/31 14:15:06 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	except_for_the_map(t_cubscene *cubscene, t_lexer *lexer, int *counter)
 	(*counter)++;
 }
 
-void	player_corners(t_cubscene *cubscene, size_t  i, size_t j, size_t len)
+void	playercnr(t_cubscene *cubscene, size_t i, size_t j, size_t len)
 {
 	if ((i - 1 >= 0 && cubscene->map[j][i - 1] == 32)
 		|| (i + 1 < len && cubscene->map[j][i + 1] == 32)

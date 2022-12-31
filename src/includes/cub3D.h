@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 01:45:06 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/31 12:19:32 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/31 14:15:06 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # include	"canvas.h"
 
 # define STDERR  			2
-# define REC_SIZE 			60
+# define REC_SIZE 			32
 # define RED 				16711680
 # define UP					13
 # define DOWN				1
@@ -43,15 +43,15 @@
 # define RIGHT_ARROW		124
 # define FIELD_OF_ANGLE		1.047197551196598
 # define FIELD_OF_ANGLE_2	0.523598775598299
-# define CENTER				30
+# define CENTER				16
 # define X					0
 # define Y					1
 # define HIT_STAT			2
 # define SCALE				0.2
-# define HEIGHT				1080
-# define WIDTH				1920
-# define HEIGHT_2		540.0
-# define WIDTH_2			960.0
+# define HEIGHT				720
+# define WIDTH				1080
+# define HEIGHT_2			360.0
+# define WIDTH_2			540.0
 
 typedef struct color
 {
@@ -152,7 +152,7 @@ int				key_release(int keycode, t_cubscene *cubscene);
 int				key_handler(int keycode, t_cubscene *cubscene);
 int				close_x(void);
 int				posi(char *str);
-void			player_corners(t_cubscene *cubscene, size_t i, size_t j, size_t len);
+void			playercnr(t_cubscene *cubscene, size_t i, size_t j, size_t len);
 void			corners(t_cubscene *cubscene, size_t i, size_t j, size_t len);
 int				corners_check(char c);
 void			hor(t_cubscene *cubscene, int index, double *hit, double tan);

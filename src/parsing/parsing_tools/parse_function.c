@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 21:44:46 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/31 13:16:04 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/31 14:15:06 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	hard_code_time(t_cubscene *cubscene)
 		while (cubscene->map[j][++i])
 		{
 			if (cubscene->map[j][i] == 'N')
-				player_corners(cubscene, i, j, len);
+				playercnr(cubscene, i, j, len);
 			if (cubscene->map[j][i] == '0')
 				corners(cubscene, i, j, len);
 		}
