@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 01:45:06 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/30 17:56:17 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:19:32 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@
 # define Y					1
 # define HIT_STAT			2
 # define SCALE				0.2
+# define HEIGHT				1080
+# define WIDTH				1920
+# define HEIGHT_2		540.0
+# define WIDTH_2			960.0
 
 typedef struct color
 {
@@ -116,10 +120,6 @@ typedef struct cubscene
 	t_canvas	**tx_canvas;
 	int			map_height;
 	int			frame_rate;
-	int			_height;
-	int			_width;
-	int			half_height;
-	int			half_width;
 	int			map_width;
 }	t_cubscene;
 

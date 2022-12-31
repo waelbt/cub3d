@@ -1,7 +1,8 @@
-NO src/assets/textures/wallp_san.xpm
-SO /Users/waboutzo/Desktop/cub3d/src/assets/textures/wallp_san.xpm
-WE /Users/waboutzo/Desktop/cub3d/src/assets/textures/wallp_san.xpm
-EA /Users/waboutzo/Desktop/cub3d/src/assets/textures/wallp_san.xpm
+NO src/assets/textures/ssss.xpm
+SO src/assets/textures/snowman.xpm
+WE src/assets/textures/city.xpm
+EA src/assets/textures/mhdi.xpm
+
 
 C 103,  193, 202
 F 125, 130, 140

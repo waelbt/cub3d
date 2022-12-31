@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 13:26:24 by lchokri           #+#    #+#             */
-/*   Updated: 2022/12/30 18:00:37 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:17:08 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	hor(t_cubscene *cubscene, int index, double *hit, double tan)
 		step[X] *= -1;
 	if (cubscene->rays[index]->is_ray_facing_right && step[X] < 0)
 		step[X] *= -1;
-	while (hit[X] >= 0 && hit[X] <= cubscene->_width
-		&& hit[Y] >= 0 && hit[Y] <= cubscene->_height)
+	while (hit[X] >= 0 && hit[X] <= cubscene->map_width
+		&& hit[Y] >= 0 && hit[Y] <= cubscene->map_height)
 	{
 		hit[HIT_STAT] = has_wall_at(cubscene, hit[X],
 				hit[Y] - (cubscene->rays[index]->is_ray_facing_up));
@@ -57,8 +57,8 @@ void	ver(t_cubscene *cubscene, int index, double *hit, double tan)
 		step[Y] *= -1;
 	if (cubscene->rays[index]->is_ray_facing_down && step[Y] < 0)
 		step[Y] *= -1;
-	while (hit[X] >= 0 && hit[X] <= cubscene->_width
-		&& hit[Y] >= 0 && hit[Y] <= cubscene->_height)
+	while (hit[X] >= 0 && hit[X] <= cubscene->map_width
+		&& hit[Y] >= 0 && hit[Y] <= cubscene->map_height)
 	{
 		hit[HIT_STAT] = has_wall_at(cubscene,
 				hit[X] - (cubscene->rays[index]->is_ray_facing_left), hit[Y]);

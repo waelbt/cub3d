@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:43:24 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/29 16:01:16 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:18:29 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,16 @@ void	ft_clear(t_cubscene *cubscene)
 	int		j;
 
 	j = -1;
-	while (++j < cubscene->_height / 2)
+	while (++j < HEIGHT)
 	{
 		i = -1;
-		while (++i < cubscene->_width)
+		while (++i < WIDTH)
 			write_pixel(cubscene->canvas, i, j, cubscene->ceilling);
 	}
-	while (j < cubscene->_height)
+	while (j < HEIGHT)
 	{
 		i = -1;
-		while (++i < cubscene->_width)
+		while (++i < WIDTH)
 			write_pixel(cubscene->canvas, i, j, cubscene->floor);
 		j++;
 	}
@@ -75,7 +75,7 @@ int	render(t_cubscene *cubscene)
 		cast_all_rays(cubscene);
 		ft_clear(cubscene);
 		projectewalls(cubscene);
-		render_minimap(cubscene);
+		//render_minimap(cubscene);
 		ft_free_rays(cubscene);
 		mlx_put_image_to_window(cubscene->mlx, cubscene->win,
 			cubscene->canvas->img, 0, 0);
@@ -96,14 +96,12 @@ int	main(int argc, char **argv)
 	cubscene->mlx = mlx_init();
 	if (!cubscene->mlx)
 		ft_error("mlx_init() failed to connect to graphical system!");
-	cubscene->_height = cubscene->map_height * REC_SIZE;
-	cubscene->_width = cubscene->map_width * REC_SIZE;
-	cubscene->half_height = cubscene->_height / 2;
-	cubscene->half_width = cubscene->_width / 2;
+	cubscene->map_height *= REC_SIZE;
+	cubscene->map_width *= REC_SIZE;
 	cubscene->win = mlx_new_window(cubscene->mlx,
-			cubscene->_width, cubscene->_height, "cub3d");
-	canvas = mlx_new_image(cubscene->mlx, cubscene->_width, cubscene->_height);
-	cubscene->canvas = new_canvas(canvas, cubscene->_width, cubscene->_height);
+			WIDTH, HEIGHT, "cub3d");
+	canvas = mlx_new_image(cubscene->mlx, WIDTH, HEIGHT);
+	cubscene->canvas = new_canvas(canvas, WIDTH, HEIGHT);
 	texture_init(cubscene);
 	mlx_hook(cubscene->win, 2, 0, key_handler, cubscene);
 	mlx_hook(cubscene->win, 3, 0, key_release, cubscene);

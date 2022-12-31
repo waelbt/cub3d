@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 04:00:18 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/30 17:56:04 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:16:16 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ void	cast_all_rays(t_cubscene *cubscene)
 	double	tan_angle;
 
 	column_id = 0;
-	cubscene->rays = (t_rays **) malloc(sizeof(t_rays) * cubscene->_width);
+	cubscene->rays = (t_rays **) malloc(sizeof(t_rays) * WIDTH);
 	ray_angle = cubscene->player->rotation_angle - FIELD_OF_ANGLE_2;
-	while (column_id < cubscene->_width)
+	while (column_id < WIDTH)
 	{
 		cubscene->rays[column_id] = new_ray(ray_angle, cubscene);
 		tan_angle = tan(cubscene->rays[column_id]->angle);
 		intersection(cubscene, column_id, tan_angle);
-		ray_angle += ((double) FIELD_OF_ANGLE) / cubscene->_width;
+		ray_angle += ((double) FIELD_OF_ANGLE) / WIDTH;
 		column_id++;
 	}
 }
@@ -62,7 +62,7 @@ void	ft_free_rays(t_cubscene *cubscene)
 	int	i;
 
 	i = -1;
-	while (++i < cubscene->_width)
+	while (++i < WIDTH)
 		free(cubscene->rays[i]);
 	free (cubscene->rays);
 }

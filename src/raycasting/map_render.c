@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:56:14 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/30 16:11:06 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:15:57 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	projectewalls(t_cubscene *cubscene)
 	int		i;
 
 	i = -1;
-	while (++i < cubscene->_width)
+	while (++i < WIDTH)
 	{
 		distance = cubscene->rays[i]->distance
 			* cos(cubscene->rays[i]->angle - cubscene->player->rotation_angle);
-		distance_projection_plane = cubscene->half_width / 0.577350269189626;
+		distance_projection_plane = WIDTH_2 / 0.577350269189626;
 		wall_strip_height = (REC_SIZE / distance) * distance_projection_plane;
-		rec(cubscene, i, cubscene->half_height
+		rec(cubscene, i, HEIGHT_2
 			- (wall_strip_height / 2), wall_strip_height);
 	}
 }
@@ -51,8 +51,8 @@ int	has_wall_at(t_cubscene *cubscene, double x, double y)
 
 	i = x / REC_SIZE;
 	j = y / REC_SIZE;
-	if (x < 0 || y < 0 || y >= cubscene->_height
-		|| x >= cubscene->_width || i >= (int) ft_strlen(cubscene->map[j]))
+	if (x < 0 || y < 0 || y >= cubscene->map_height
+		|| x >= cubscene->map_width || i >= (int) ft_strlen(cubscene->map[j]))
 		return (1);
 	if (cubscene->map[j][i] == '1')
 		return (1);
