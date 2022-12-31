@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 21:44:46 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/29 18:52:37 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/31 13:16:04 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	check_elements(t_cubscene *cubscene, char element, int x, int y)
 		{
 			if (j > 2)
 			{
-				printf("%d %d\n", x, y);
 				cubscene->player = new_player(x, y, element);
 				cubscene->counter++;
 			}
