@@ -6,7 +6,7 @@
 /*   By: waboutzo <waboutzo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:18:13 by waboutzo          #+#    #+#             */
-/*   Updated: 2022/12/22 03:40:53 by waboutzo         ###   ########.fr       */
+/*   Updated: 2022/12/29 18:43:50 by waboutzo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,32 +42,42 @@ char	**fill_types(void)
 	return (types);
 }
 
+void	path_validition(char *ptr)
+{
+	int	fd;
+
+	fd = open(ptr, 0);
+	if (fd < 0)
+		ft_error("invalid texture");
+	close(fd);
+}
+
 void	fill_textures(t_cubscene *cubscene, t_lexer *lexer, char *find)
 {
-	int		i;
-	char	*str;
-	char	*strim;
+	int		i[2];
+	char	*str[2];
 	char	**types;
 
-	i = -1;
+	i[0] = -1;
 	types = fill_types();
-	while (++i < 4)
-		if (!ft_strcmp(find, (char *) types[i]))
+	while (++i[0] < 4)
+		if (!ft_strcmp(find, (char *) types[i[0]]))
 			break ;
-	if (i == 4)
+	if (i[0] == 4)
 		ft_error("identifier invalid");
-	if (cubscene->texture->path[i])
+	if (cubscene->texture->path[i[0]])
 		ft_error("repeated identifier");
-	cubscene->texture->path[i] = filter(lexer, identifier_value);
-	strim = ft_strtrim(cubscene->texture->path[i], " ");
-	str = ft_strrchr(strim, '.');
-	if (str && ft_strcmp(str, ".xpm"))
+	cubscene->texture->path[i[0]] = filter(lexer, identifier_value);
+	str[1] = ft_strtrim(cubscene->texture->path[i[0]], " ");
+	str[0] = ft_strrchr(str[1], '.');
+	if (str[0] && ft_strcmp(str[0], ".xpm"))
 		ft_error("texture should be on xpm forma");
-	str = ft_strchr(strim, '/');
-	if ((str && !ft_strcmp(str, "/.xpm"))
-		|| !ft_strcmp(cubscene->texture->path[i], ".xpm"))
+	str[0] = ft_strchr(str[1], '/');
+	if ((str[0] && !ft_strcmp(str[0], "/.xpm"))
+		|| !ft_strcmp(cubscene->texture->path[i[0]], ".xpm"))
 		ft_error("extension neeed a name -_-");
-	free(strim);
+	path_validition(cubscene->texture->path[i[0]]);
+	free(str[1]);
 	free(types);
 }
 

@@ -18,12 +18,12 @@ NAME    		=    libft.a
 RM        		=     rm -f
 
 $(NAME):
-	cc $(FLAGS) -c $(SRCS)
-	ar rcs $(NAME) $(OBJS)
+	@cc $(FLAGS) -c $(SRCS)
+	@ar rcs $(NAME) $(OBJS)
 
 $(BONUS_OBJS):
-	cc $(FLAGS) -c $(BONUS)
-	ar rcs $(NAME) $(BONUS_OBJS)
+	@cc $(FLAGS) -c $(BONUS)
+	@ar rcs $(NAME) $(BONUS_OBJS)
 
 
 all:    $(NAME)
@@ -32,10 +32,10 @@ bonus:    $(BONUS_OBJS)
 
 
 clean:
-	${RM} ${OBJS} ${BONUS_OBJS}
+	@${RM} ${OBJS} ${BONUS_OBJS}
 
 fclean:    clean
-	${RM} ${NAME}
+	@${RM} ${NAME}
 
 re:        fclean all
 
